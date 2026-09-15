@@ -1,16 +1,20 @@
     layout {
-        gaps 12 // Compact enough for tiling, while keeping the wallpaper visible
+        gaps 10
         center-focused-column "on-overflow"
         always-center-single-column
 
-        background-color "transparent" // Needed for Noctalia's stationary wallpaper
+        background-color "transparent"
 
         preset-column-widths {
             proportion 0.33333
             proportion 0.5
             proportion 0.66667
         }
+        default-column-width {
+            proportion 0.5
+        }
 
+        struts {}
         // Keep attention on the active window without drawing boxes around
         // the entire workspace.
         focus-ring {
@@ -28,6 +32,4 @@
             offset x=0 y=4
             color "#00000080"
         }
-
-        struts {}
     }

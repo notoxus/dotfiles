@@ -9,8 +9,8 @@
     }
 
     cursor {
-        xcursor-theme "capitaine-cursors"
-        xcursor-size 24
+        xcursor-theme "Bibata-Modern-Ice"
+        xcursor-size 28
     }
 
     debug {

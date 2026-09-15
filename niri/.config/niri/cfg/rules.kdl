@@ -3,10 +3,10 @@
         clip-to-geometry true
     }
 
-    // Keep Firefox picture-in-picture useful without disturbing the tiled layout.
+    // Keep Firefox picture-in-picture in tiled layout.
     window-rule {
         match app-id=r#"firefox$"# title="^Picture-in-Picture$"
-
+        
         open-floating true
         default-column-width { fixed 480; }
         default-window-height { fixed 270; }
@@ -26,6 +26,10 @@
        open-focused false
     }
 
+    window-rule {
+       match app-id=r#"^com\.mitchellh\.ghostty$"# is-focused=false
+       opacity 0.80
+    }
     layer-rule {
         match namespace="^noctalia-wallpaper"
         place-within-backdrop true
