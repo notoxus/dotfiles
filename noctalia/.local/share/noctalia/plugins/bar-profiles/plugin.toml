@@ -1,0 +1,27 @@
+id = "notoxus/bar-profiles"
+name = "Bar Profiles"
+version = "0.1.0"
+plugin_api = 9
+author = "notoxus"
+license = "MIT"
+dependencies = []
+tags = ["bar", "layout", "profiles"]
+icon = "layout-dashboard"
+description = "Switch Noctalia bar layouts from a panel, Control Center shortcut, or bar widget."
+
+[[panel]]
+id = "profile-picker"
+entry = "panel.luau"
+width = 440
+height = 360
+placement = "floating"
+position = "center"
+dismiss_on_outside_click = true
+
+[[shortcut]]
+id = "profile-shortcut"
+entry = "shortcut.luau"
+
+[[widget]]
+id = "switcher"
+entry = "widget.luau"

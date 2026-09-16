@@ -71,18 +71,23 @@ Specific:
 If an existing destination differs, it is moved to a
 timestamped tree under `~/.dotfiles-backup/` before the new file is copied.
 
-### Enable the Noctalia plugin
+### Enable the Noctalia plugins
 
-The `noctalia` component includes the local `notoxus/os-logo` plugin. After
-copying the component, enable the plugin once:
+The `noctalia` component includes the local `notoxus/os-logo` and
+`notoxus/bar-profiles` plugins. After copying the component, enable them once:
 
 ```sh
 ./install noctalia
 noctalia msg plugins enable notoxus/os-logo
+noctalia msg plugins enable notoxus/bar-profiles
 ```
 
-Log out and back in after enabling it for the first time. A config reload may
-not create a newly added plugin widget until the Noctalia session restarts.
+Add the Bar Profiles shortcut under Settings → Control Center, replacing one
+of the six existing shortcuts. The tracked profiles include the current bottom
+bar, the previous bottom and top bars, a side bar, and a top islands layout.
+
+Log out and back in after enabling a plugin for the first time. A config reload
+may not create a newly added plugin entry until the Noctalia session restarts.
 
 ### Install the tmux plugins
 

@@ -3,7 +3,7 @@
         clip-to-geometry true
     }
 
-    // Keep Firefox picture-in-picture in tiled layout.
+    // Keep Firefox picture-in-picture floating.
     window-rule {
         match app-id=r#"firefox$"# title="^Picture-in-Picture$"
         

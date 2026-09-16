@@ -1,10 +1,11 @@
-{ config, pkgs, ... }:
-
-{ 
+{ config, pkgs, inputs, ... }:
+let
+  unstable = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system};
+in
+{
 #   imports = [
 #       inputs.noctalia.homeModules.default
 #   ];
-
    home.username = "juo";
    home.homeDirectory = "/home/juo";
    home.sessionPath = [
@@ -39,7 +40,7 @@
          ll = "ls -lah";
          gs = "git status";
          bentopdf =
-     	 "docker run -d --rm --name bentopdf -p 3000:8080 ghcr.io/alam00000/bentopdf-simple:latest";
+  "docker run -d --rm --name bentopdf -p 127.0.0.1:3000:8080 ghcr.io/alam00000/bentopdf-simple:latest";
          tree = "eza --tree --icons";
       };
    };
@@ -111,10 +112,22 @@
       line_break.disabled = false;
      };
    };
+   programs.vscodium = {
+      enable = true;
+
+      profiles.default.extensions = with pkgs.vscode-extensions; [
+         bbenoist.nix          # Nix language support
+         arrterian.nix-env-selector
+         dracula-theme.theme-dracula
+         vscodevim.vim
+         yzhang.markdown-all-in-one
+     ];
+   };
+
    gtk = {
       enable = true;
       font = {
-         name = "Noto Sans";
+         name = "JetBrainsMono Nerd Font";
          size = 11;
       };
    };
@@ -129,6 +142,22 @@
    };
    home.packages = with pkgs; [
       tmux
+      nautilus
+      codex
+      rnote
+      gaphor
+      unstable.rustdesk-flutter
    ];
+   xdg = {
+      enable = true;
+
+      mimeApps = {
+         enable = true;
+
+         defaultApplications = {
+           "inode/directory" = [ "org.gnome.Nautilus.desktop" ];
+         };
+      };
+   };
    programs.home-manager.enable = true;
 }

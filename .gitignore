@@ -19,3 +19,6 @@ tmux/.config/tmux/plugins/
 
 # ── App logs / caches ──
 *.log
+
+# ── Nix build outputs ──
+/nixos-cfg/result

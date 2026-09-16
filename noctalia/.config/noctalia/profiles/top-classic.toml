@@ -1,0 +1,19 @@
+[bar.main]
+position = "top"
+thickness = 34
+background_opacity = 0.93
+radius = 12
+margin_ends = 4
+margin_edge = 4
+padding = 8
+widget_spacing = 6
+scale = 1.0
+font_scale = 1.0
+font_family = "JetBrainsMono Nerd Font"
+shadow = true
+auto_hide = false
+reserve_space = true
+capsule = true
+start = ["launcher", "clock", "active_window", "media"]
+center = ["workspaces"]
+end = ["tray", "notifications", "battery", "volume", "brightness", "control-center"]

@@ -1,0 +1,23 @@
+[bar.main]
+position = "bottom"
+thickness = 42
+background_opacity = 0.96
+border = "#3B4261"
+border_width = 1.0
+radius = 22
+concave_edge_corners = true
+margin_ends = 12
+margin_edge = 0
+padding = 14
+widget_spacing = 8
+scale = 1.0
+font_scale = 1.0
+font_family = "JetBrainsMono Nerd Font"
+font_weight = 600
+shadow = true
+auto_hide = false
+reserve_space = true
+capsule = false
+start = ["os-logo", "launcher", "workspaces", "taskbar"]
+center = []
+end = ["network", "notifications", "volume", "battery", "clock", "control-center", "session"]

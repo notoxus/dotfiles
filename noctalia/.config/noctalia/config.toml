@@ -1,5 +1,9 @@
 # Noctalia v5 configuration.
 
+[include]
+autoload = false
+files = ["bar-profile.toml"]
+
 [shell]
 corner_radius_scale = 1.0
 telemetry_enabled = false
@@ -23,7 +27,7 @@ launcher_placement = "floating"
 clipboard_placement = "floating"
 control_center_placement = "attached"
 open_near_click_control_center = true
-wallpaper_placement = "attached"
+wallpaper_placement = "floating"
 session_placement = "floating"
 launcher_position = "center"
 
@@ -91,73 +95,7 @@ enable_sounds = false
 enable_ddcutil = false
 
 [plugins]
-enabled = ["notoxus/os-logo"]
-
-# Previous full-width top bar.
-# [bar.main] block below to restore it.
-# [bar.main]
-# position = "top"
-# thickness = 34
-# background_opacity = 0.93
-# radius = 12
-# margin_ends = 4
-# margin_edge = 4
-# padding = 8
-# widget_spacing = 6
-# scale = 1.0
-# font_scale = 1.0
-# shadow = true
-# auto_hide = false
-# reserve_space = true
-# capsule = true
-# start = ["launcher", "clock", "active_window", "media"]
-# center = ["workspaces"]
-# end = ["tray", "notifications", "battery", "volume", "brightness", "control-center"]
-
-# Previous bottom taskbar.
-# [bar.main]
-# position = "bottom"
-# thickness = 38
-# background_opacity = 0.93
-# radius = 18
-# concave_edge_corners = true
-# margin_ends = 16
-# margin_edge = 0
-# padding = 12
-# widget_spacing = 6
-# scale = 1.0
-# font_scale = 1.0
-# shadow = true
-# auto_hide = false
-# reserve_space = true
-# capsule = false
-# start = ["os-logo", "launcher", "workspaces", "taskbar"]
-# center = ["media"]
-# end = ["tray", "network", "notifications", "battery", "volume", "brightness", "clock", "control-center", "session"]
-
-# Present taskbar
-[bar.main]
-position = "bottom"
-thickness = 42
-background_opacity = 0.96
-border = "#3B4261"
-border_width = 1.0
-radius = 22
-concave_edge_corners = true
-margin_ends = 12
-margin_edge = 0
-padding = 14
-widget_spacing = 8
-scale = 1.0
-font_scale = 1.0
-font_weight = 600
-shadow = true
-auto_hide = false
-reserve_space = true
-capsule = false
-start = ["os-logo", "launcher", "workspaces", "taskbar"]
-center = []
-end = ["network", "notifications", "volume", "battery", "clock", "control-center", "session"]
+enabled = ["notoxus/os-logo", "notoxus/bar-profiles"]
 
 [dock]
 enabled = false
@@ -219,7 +157,7 @@ capsule_fill = "#000000"
 capsule_foreground = "#FFFFFF"
 capsule_opacity = 1.0
 capsule_padding = 6
-capsule_radius = 99
+capsule_radius = 80
 min_length = 120
 max_length = 150
 art_size = 18

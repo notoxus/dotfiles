@@ -1,0 +1,43 @@
+[bar.main]
+position = "top"
+thickness = 38
+background_opacity = 0.0
+radius = 18
+margin_ends = 12
+margin_edge = 8
+padding = 8
+widget_spacing = 6
+scale = 1.0
+font_scale = 1.0
+font_family = "JetBrainsMono Nerd Font"
+shadow = false
+auto_hide = false
+reserve_space = false
+capsule = true
+start = ["group:left"]
+center = ["group:center"]
+end = ["group:right"]
+
+[[bar.main.capsule_group]]
+id = "left"
+members = ["os-logo", "launcher", "workspaces"]
+fill = "surface"
+opacity = 0.92
+radius = 18
+padding = 10
+
+[[bar.main.capsule_group]]
+id = "center"
+members = ["clock"]
+fill = "surface"
+opacity = 0.92
+radius = 18
+padding = 12
+
+[[bar.main.capsule_group]]
+id = "right"
+members = ["network", "notifications", "volume", "battery", "control-center", "session"]
+fill = "surface"
+opacity = 0.92
+radius = 18
+padding = 10

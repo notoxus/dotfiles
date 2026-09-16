@@ -60,3 +60,8 @@ noctalia config validate
 Noctalia stores changes made in its settings UI under
 `~/.local/state/noctalia/settings.toml`. Those state overrides take precedence
 over the tracked `~/.config/noctalia/config.toml` values.
+
+Bar layouts live under `~/.config/noctalia/profiles/`. The active layout is
+selected by `bar-profile.toml` and can be changed from the local Bar Profiles
+plugin shortcut in Control Center. If a selected profile does not appear,
+remove stale bar overrides from the Noctalia Settings UI state.

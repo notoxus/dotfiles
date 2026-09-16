@@ -2,7 +2,7 @@
 
 {
   imports =
-    [ 
+    [
       ./hardware-configuration.nix
       inputs.noctalia.nixosModules.default
       inputs.noctalia-greeter.nixosModules.default
@@ -64,7 +64,7 @@
   # services.libinput.enable = true;
 
   programs.niri.enable = true;
-  programs.noctalia = { 
+  programs.noctalia = {
       enable = true;
     # recommendedServices.enable = true;
   };
@@ -84,6 +84,10 @@
 
         idle = {
            timeout = 300;
+        };
+
+        appearance = {
+           font_family = "JetBrainsMono Nerd Font";
         };
      };
   };
@@ -107,15 +111,9 @@
      vim
      wget
      git
-     ghostty
      noctalia
-     tmux
      neovim
      fastfetch
-     starship
-     fzf
-     zoxide
-     yazi
      eza
      lazygit
      bat
@@ -126,6 +124,7 @@
      xwayland-satellite
      pciutils
      btop
+     unzip
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -151,11 +150,35 @@
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.
   # system.copySystemConfiguration = true;
-
+  nixpkgs.config.allowUnfreePredicate = pkg:
+  builtins.elem (lib.getName pkg) [
+    "libsciter"
+  ];
   fonts.packages = with pkgs; [
      nerd-fonts.jetbrains-mono
+     noto-fonts
+     noto-fonts-cjk-sans
+     noto-fonts-color-emoji
   ];
+  fonts.fontconfig.defaultFonts = {
+    monospace = [
+      "JetBrainsMono Nerd Font Mono"
+      "Noto Sans Mono CJK SC"
+      "Noto Color Emoji"
+    ];
+    sansSerif = [
+      "JetBrainsMono Nerd Font"
+      "Noto Sans"
+      "Noto Sans CJK SC"
+      "Noto Color Emoji"
+    ];
+    serif = [
+      "Noto Serif"
+      "Noto Serif CJK SC"
+      "Noto Color Emoji"
+    ];
+    emoji = [ "Noto Color Emoji" ];
+  };
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   system.stateVersion = "26.05";
 }
-
