@@ -1,0 +1,31 @@
+[bar]
+order = ["main", "media-island"]
+
+[bar.media-island]
+position = "top"
+thickness = 42
+background_opacity = 0.96
+border = "outline"
+border_width = 0.0
+radius = 22
+radius_top_left = 22
+radius_top_right = 22
+radius_bottom_left = 22
+radius_bottom_right = 22
+concave_edge_corners = true
+margin_ends = 525
+margin_edge = 0
+padding = 10
+widget_spacing = 8
+scale = 1.0
+font_scale = 1.0
+font_family = "JetBrainsMono Nerd Font"
+font_weight = 600
+shadow = true
+auto_hide = false
+reserve_space = false
+layer = "overlay"
+capsule = false
+start = []
+center = ["media-island", "media-previous", "media-toggle", "media-next", "media-wave", "media-balance"]
+end = []

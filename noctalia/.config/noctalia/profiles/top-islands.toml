@@ -15,7 +15,7 @@ auto_hide = false
 reserve_space = false
 capsule = true
 start = ["group:left"]
-center = ["group:center"]
+center = ["group:center", "media"]
 end = ["group:right"]
 
 [[bar.main.capsule_group]]
@@ -41,3 +41,35 @@ fill = "surface"
 opacity = 0.92
 radius = 18
 padding = 10
+
+[dock]
+enabled = true
+position = "right"
+icon_size = 38
+main_axis_padding = 12
+cross_axis_padding = 7
+item_spacing = 7
+background_opacity = 0.92
+border = "outline"
+border_width = 1.0
+radius = 18
+concave_edge_corners = false
+margin_ends = 12
+margin_edge = 8
+shadow = true
+show_running = true
+auto_hide = true
+smart_auto_hide = false
+reserve_space = false
+layer = "overlay"
+active_scale = 1.0
+inactive_scale = 0.82
+magnification = true
+magnification_scale = 1.5
+active_opacity = 1.0
+inactive_opacity = 0.82
+show_dots = true
+show_instance_count = true
+launcher_position = "end"
+launcher_icon = "grid-dots"
+pinned = []

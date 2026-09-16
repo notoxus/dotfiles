@@ -2,8 +2,9 @@
 
 {
   imports =
-    [
+    [ 
       ./hardware-configuration.nix
+      ./modules/power.nix
       inputs.noctalia.nixosModules.default
       inputs.noctalia-greeter.nixosModules.default
     ];
@@ -18,7 +19,6 @@
      enable = true;
      powerOnBoot = true;
   };
-  services.upower.enable = true;
   # Set your time zone.
   time.timeZone = "Asia/Ho_Chi_Minh";
 
@@ -59,12 +59,11 @@
      enable = true;
      pulse.enable = true;
   };
-  services.power-profiles-daemon.enable = true;
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
 
   programs.niri.enable = true;
-  programs.noctalia = {
+  programs.noctalia = { 
       enable = true;
     # recommendedServices.enable = true;
   };
@@ -97,7 +96,7 @@
       extraGroups = [ "networkmanager" "wheel" ];
       shell = pkgs.zsh;
       packages = with pkgs; [
-        tree
+        # Cuz I used home.nix, so I dont need that block anyway
       ];
   };
   programs.zsh.enable = true;
@@ -182,3 +181,4 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   system.stateVersion = "26.05";
 }
+

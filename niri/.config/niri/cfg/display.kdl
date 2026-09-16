@@ -4,6 +4,6 @@
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
 
 output "eDP-1" {
-    mode "2560x1440@359.979" // Resolution and fresh rate
+    mode "2560x1600@165.000" // My own desktop's resolution and fresh rate
     scale 1.75
 }

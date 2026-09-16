@@ -64,11 +64,28 @@ Noctalia stores changes made in its settings UI under
 over the tracked `~/.config/noctalia/config.toml` values.
 
 Bar layouts live under `~/.config/noctalia/profiles/`. The active layout is
-selected by `bar-profile.toml` and can be changed from the local Bar Profiles
-widget on the bar: left-click cycles profiles, right-click opens the picker,
-and scrolling cycles in either direction. The same picker can optionally be
-added under Settings → Control Center → Shortcuts. If a selected profile does not appear,
-remove stale bar overrides from the Noctalia Settings UI state.
+selected by `bar-profile.toml`. Click the icon-only Appearance widget to choose
+a built-in theme, dark/light/automatic mode, and bar layout; nothing changes
+until `Apply` is pressed. The same panel can optionally be added under Settings
+→ Control Center → Shortcuts. If a selected profile does not appear, remove
+stale bar overrides from the Noctalia Settings UI state.
+
+Profiles whose main bar is on the bottom or side include a top-center media
+island attached flush to the screen edge. Its 42 px geometry mirrors the normal
+bottom bar: concave screen-edge corners and rounded inner corners. The
+`noctalia-media-island` watcher reveals it for 1.5 seconds when playback
+starts or the track changes during playback, then hides the whole overlay.
+It includes artwork, track information, playback-aware controls, and a native
+PipeWire audio visualizer.
+Its opacity follows the selected bar profile. Top-bar profiles keep media
+within the main bar instead. On bottom profiles, the persistent collapsed state
+is a compact media pill with a hover-scroll title and a live audio visualizer inside
+the main bar; only the short expanded state uses the attached top-edge surface.
+
+The profile list is deliberately limited to `bottom`, `bottom-islands`, `top`,
+`top-islands`, and `side`. The side profile pairs its left bar with a visible
+right-side app dock. Top islands uses the same right-side dock with pointer
+auto-hide enabled.
 
 The OS logo is also the launcher button. Hover it for the OS name and shortcut
 hints, or left-click it to open the launcher (`Mod+Ctrl+Enter`).

@@ -2,10 +2,7 @@
 let
   unstable = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system};
 in
-{
-#   imports = [
-#       inputs.noctalia.homeModules.default
-#   ];
+{ 
    home.username = "juo";
    home.homeDirectory = "/home/juo";
    home.sessionPath = [
@@ -37,21 +34,17 @@ in
          share = false;
       };
       shellAliases = {
-         ll = "ls -lah";
+         ll = "ls -lah --icons";
          gs = "git status";
          bentopdf =
   "docker run -d --rm --name bentopdf -p 127.0.0.1:3000:8080 ghcr.io/alam00000/bentopdf-simple:latest";
-         tree = "eza --tree --icons";
+         tree = "eza --tree --icons -a";
       };
    };
    programs.ghostty = {
       enable = true;
       enableZshIntegration = true;
    };
-#   programs.noctalia = {
-#      enable = true;
-#      systemd.enable = true;
-#   };
    programs.fzf = {
       enable = true;
       enableZshIntegration = true;
@@ -115,19 +108,32 @@ in
    programs.vscodium = {
       enable = true;
 
-      profiles.default.extensions = with pkgs.vscode-extensions; [
-         bbenoist.nix          # Nix language support
-         arrterian.nix-env-selector
-         dracula-theme.theme-dracula
-         vscodevim.vim
-         yzhang.markdown-all-in-one
-     ];
+      profiles.default = {
+         extensions = with pkgs.vscode-extensions; [
+            bbenoist.nix
+            formulahendry.code-runner
+            arrterian.nix-env-selector
+            dracula-theme.theme-dracula
+         ];
+
+         userSettings = {
+            "workbench.colorTheme" = "Dracula Theme";
+
+            "code-runner.clearPreviousOutput" = true;
+            "code-runner.saveFileBeforeRun" = true;
+
+            "editor.fontSize" = 16;
+
+            "files.autoSave" = "afterDelay";
+            "files.autoSaveDelay" = 500;
+         };
+      };
    };
 
    gtk = {
       enable = true;
       font = {
-         name = "JetBrainsMono Nerd Font";
+         name = "Noto Sans";
          size = 11;
       };
    };

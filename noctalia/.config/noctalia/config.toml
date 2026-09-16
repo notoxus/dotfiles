@@ -95,10 +95,7 @@ enable_sounds = false
 enable_ddcutil = false
 
 [plugins]
-enabled = ["notoxus/os-logo", "notoxus/bar-profiles"]
-
-[dock]
-enabled = false
+enabled = ["notoxus/os-logo", "notoxus/bar-profiles", "notoxus/media-island"]
 
 [[control_center.shortcuts]]
 type = "wifi"
@@ -165,13 +162,84 @@ hide_artist = true
 title_scroll = "on_hover"
 show_progress = true
 
+# Collapsed media island used inside bottom bars. Its black capsule is supplied
+# by the owning bar's media-compact group so the visualizer shares one pill.
+[widget.media-compact]
+type = "media"
+hide_when_no_media = true
+capsule = false
+min_length = 120
+max_length = 150
+art_size = 18
+hide_artist = true
+title_scroll = "on_hover"
+show_progress = true
+
+[widget.media-wave-compact]
+type = "audio_visualizer"
+capsule = false
+width = 34
+bands = 9
+mirrored = true
+centered = true
+show_when_idle = false
+color_1 = "primary"
+color_2 = "secondary"
+
+# Expanded media presentation used only by the temporary top-center island.
+[widget.media-island]
+type = "media"
+hide_when_no_media = true
+capsule = false
+min_length = 190
+max_length = 240
+art_size = 28
+hide_artist = false
+title_scroll = "always"
+show_progress = true
+
+[widget.media-previous]
+type = "custom_button"
+glyph = "player-skip-back"
+tooltip = "Previous track"
+
+[widget.media-previous.actions]
+left = "media previous"
+
+[widget.media-toggle]
+type = "notoxus/media-island:playback-toggle"
+
+[widget.media-next]
+type = "custom_button"
+glyph = "player-skip-forward"
+tooltip = "Next track"
+
+[widget.media-next.actions]
+left = "media next"
+
+[widget.media-wave]
+type = "audio_visualizer"
+width = 48
+bands = 12
+mirrored = true
+centered = true
+show_when_idle = true
+color_1 = "primary"
+color_2 = "secondary"
+
+# Visually balances the expanded row so its album art sits slightly left of
+# center without changing spacing between media controls.
+[widget.media-balance]
+type = "spacer"
+length = 24
+
 [widget.taskbar]
 pinned = []
 group_by_workspace = false
 show_all_outputs = false
 only_active_workspace = false
-icon_scale = 1.0 # 0.9
-item_spacing = 6 # 4
+icon_scale = 0.9
+item_spacing = 4
 show_window_title = false
 show_active_indicator = true
 active_indicator_color = "primary"

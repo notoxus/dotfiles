@@ -1,3 +1,6 @@
+[include]
+files = ["../fragments/media-island.toml"]
+
 [bar.main]
 position = "bottom"
 thickness = 42
@@ -19,5 +22,15 @@ auto_hide = false
 reserve_space = true
 capsule = false
 start = ["os-logo", "workspaces", "taskbar"]
-center = []
+center = ["group:media-compact"]
 end = ["network", "notifications", "volume", "battery", "clock", "bar-profile", "control-center", "session"]
+
+[[bar.main.capsule_group]]
+id = "media-compact"
+members = ["media-compact", "media-wave-compact"]
+fill = "#000000"
+foreground = "#FFFFFF"
+opacity = 1.0
+radius = 80
+padding = 6
+widget_spacing = 6

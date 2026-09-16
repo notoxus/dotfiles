@@ -1,0 +1,61 @@
+[include]
+files = ["../fragments/media-island.toml"]
+
+# Match the opacity used by this profile's three main capsules.
+[bar.media-island]
+background_opacity = 0.92
+
+[bar.main]
+position = "bottom"
+thickness = 38
+background_opacity = 0.0
+radius = 18
+concave_edge_corners = false
+margin_ends = 12
+margin_edge = 8
+padding = 8
+widget_spacing = 6
+scale = 1.0
+font_scale = 1.0
+font_family = "JetBrainsMono Nerd Font"
+shadow = false
+auto_hide = false
+reserve_space = false
+capsule = true
+start = ["group:left"]
+center = ["group:center", "group:media-compact"]
+end = ["group:right"]
+
+[[bar.main.capsule_group]]
+id = "left"
+members = ["os-logo", "workspaces", "taskbar"]
+fill = "surface"
+opacity = 0.92
+radius = 18
+padding = 10
+
+[[bar.main.capsule_group]]
+id = "center"
+members = ["clock"]
+fill = "surface"
+opacity = 0.92
+radius = 18
+padding = 12
+
+[[bar.main.capsule_group]]
+id = "media-compact"
+members = ["media-compact", "media-wave-compact"]
+fill = "#000000"
+foreground = "#FFFFFF"
+opacity = 1.0
+radius = 80
+padding = 6
+widget_spacing = 6
+
+[[bar.main.capsule_group]]
+id = "right"
+members = ["tray", "network", "notifications", "battery", "volume", "brightness", "bar-profile", "control-center", "session"]
+fill = "surface"
+opacity = 0.92
+radius = 18
+padding = 10

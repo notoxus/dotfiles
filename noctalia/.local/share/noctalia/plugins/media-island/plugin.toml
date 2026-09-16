@@ -1,0 +1,33 @@
+id = "notoxus/media-island"
+name = "Media Island"
+version = "0.1.0"
+plugin_api = 26
+author = "notoxus"
+license = "MIT"
+dependencies = []
+tags = ["bar", "media", "mpris"]
+icon = "music"
+description = "Playback-aware controls for the temporary media island."
+
+[[widget]]
+id = "playback-toggle"
+entry = "bar.luau"
+
+  [widget.actions]
+  left = "media toggle"
+
+  [[widget.setting]]
+  key = "audio_spectrum"
+  type = "bool"
+  label_key = "settings.audio-spectrum.label"
+  default = true
+  advanced = true
+
+  [[widget.setting]]
+  key = "audio_spectrum_bands"
+  type = "int"
+  label_key = "settings.audio-spectrum-bands.label"
+  default = 8
+  min = 1
+  max = 128
+  advanced = true

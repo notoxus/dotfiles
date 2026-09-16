@@ -2,9 +2,8 @@
 local profiles = require("./common.luau")
 
 local function render()
-    local current = profiles.currentProfile()
-    shortcut.setLabel(current and profiles.labelFor(current) or "Bar Profiles")
-    shortcut.setIcon("layout-dashboard")
+    shortcut.setLabel("Appearance")
+    shortcut.setIcon("palette")
     shortcut.setActive(false)
     shortcut.setEnabled(true)
 end
@@ -17,5 +16,5 @@ function onClick()
 end
 
 function onRightClick()
-    noctalia.openSettings()
+    noctalia.togglePanel("notoxus/bar-profiles:profile-picker")
 end

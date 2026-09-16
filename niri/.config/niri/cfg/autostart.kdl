@@ -2,6 +2,7 @@
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Miscellaneous#spawn-sh-at-startup
 
     spawn-at-startup "noctalia"
+    spawn-at-startup "noctalia-media-island"
     spawn-sh-at-startup "fcitx5 -d"
 
     // Noctalia v5 provides the polkit agent enabled in config.toml.

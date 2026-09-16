@@ -73,20 +73,27 @@ timestamped tree under `~/.dotfiles-backup/` before the new file is copied.
 
 ### Enable the Noctalia plugins
 
-The `noctalia` component includes the local `notoxus/os-logo` and
-`notoxus/bar-profiles` plugins. After copying the component, enable them once:
+The `noctalia` component includes the local `notoxus/os-logo`,
+`notoxus/bar-profiles`, and `notoxus/media-island` plugins. After copying the
+component, enable them once:
 
 ```sh
 ./install noctalia
 noctalia msg plugins enable notoxus/os-logo
 noctalia msg plugins enable notoxus/bar-profiles
+noctalia msg plugins enable notoxus/media-island
 ```
 
-The Bar Profiles widget is shown directly on every tracked bar: left-click it
-to cycle layouts or right-click it to open the picker. You can also add its
-shortcut under Settings → Control Center → Shortcuts, replacing one of the six
-existing shortcuts. The tracked profiles include the current bottom bar, the
-previous bottom and top bars, a side bar, and a top islands layout.
+The icon-only Appearance widget is shown directly on every tracked bar. Click
+it to choose a built-in theme, dark/light/automatic mode, and bar layout, then
+apply all three together. You can also add its shortcut under Settings →
+Control Center → Shortcuts, replacing one of the six existing shortcuts. The
+five tracked profiles are `bottom`, `bottom-islands`, `top`, `top-islands`, and
+`side`. Layouts without a top bar show active media in a top-center island
+attached flush to the screen edge for 1.5 seconds after playback changes, with
+playback-aware controls and an audio visualizer; the watcher then hides the expanded overlay while
+the compact media pill remains in the main bar. The side layout adds a visible
+macOS-style dock on the right, while top islands uses the same dock auto-hidden.
 
 The OS logo replaces the separate launcher icon on every profile. Hover it for
 the OS name and shortcut hints; left-click it to open the Noctalia launcher.

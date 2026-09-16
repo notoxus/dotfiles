@@ -1,19 +1,19 @@
 id = "notoxus/bar-profiles"
-name = "Bar Profiles"
-version = "0.1.0"
-plugin_api = 9
+name = "Appearance"
+version = "0.2.0"
+plugin_api = 26
 author = "notoxus"
 license = "MIT"
 dependencies = []
-tags = ["bar", "layout", "profiles"]
-icon = "layout-dashboard"
-description = "Switch Noctalia bar layouts from a panel, Control Center shortcut, or bar widget."
+tags = ["bar", "layout", "profiles", "theme"]
+icon = "palette"
+description = "Apply a Noctalia theme, color mode, and bar layout from one compact panel."
 
 [[panel]]
 id = "profile-picker"
 entry = "panel.luau"
-width = 440
-height = 360
+width = 460
+height = 340
 placement = "floating"
 position = "center"
 dismiss_on_outside_click = true

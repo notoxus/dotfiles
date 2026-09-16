@@ -39,7 +39,10 @@ end
 local function labelFor(name)
     if name == nil then return "None" end
     local stem = string.gsub(name, "%.toml$", "")
-    return string.gsub(stem, "[-_]+", " ")
+    -- string.gsub returns both the result and the replacement count. Capture
+    -- the result so callers such as table.insert receive exactly one value.
+    local label = string.gsub(stem, "[-_]+", " ")
+    return label
 end
 
 local function applyProfile(name)
@@ -66,10 +69,37 @@ local function applyProfile(name)
     return true, nil
 end
 
+local BUILTIN_THEMES = {
+    "Ayu",
+    "Catppuccin",
+    "Dracula",
+    "Eldritch",
+    "Gruvbox",
+    "Kanagawa",
+    "Noctalia",
+    "Nord",
+    "Rosé Pine",
+    "Tokyo-Night",
+}
+
+local THEME_MODES = { "dark", "light", "auto" }
+
+local function currentTheme()
+    return noctalia.getSetting("theme.builtin") or "Noctalia"
+end
+
+local function currentMode()
+    return noctalia.getSetting("theme.mode") or "dark"
+end
+
 return {
     profilesDir = profilesDir,
     profileFiles = profileFiles,
     currentProfile = currentProfile,
     labelFor = labelFor,
     applyProfile = applyProfile,
+    builtinThemes = BUILTIN_THEMES,
+    themeModes = THEME_MODES,
+    currentTheme = currentTheme,
+    currentMode = currentMode,
 }
