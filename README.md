@@ -82,9 +82,14 @@ noctalia msg plugins enable notoxus/os-logo
 noctalia msg plugins enable notoxus/bar-profiles
 ```
 
-Add the Bar Profiles shortcut under Settings → Control Center, replacing one
-of the six existing shortcuts. The tracked profiles include the current bottom
-bar, the previous bottom and top bars, a side bar, and a top islands layout.
+The Bar Profiles widget is shown directly on every tracked bar: left-click it
+to cycle layouts or right-click it to open the picker. You can also add its
+shortcut under Settings → Control Center → Shortcuts, replacing one of the six
+existing shortcuts. The tracked profiles include the current bottom bar, the
+previous bottom and top bars, a side bar, and a top islands layout.
+
+The OS logo replaces the separate launcher icon on every profile. Hover it for
+the OS name and shortcut hints; left-click it to open the Noctalia launcher.
 
 Log out and back in after enabling a plugin for the first time. A config reload
 may not create a newly added plugin entry until the Noctalia session restarts.

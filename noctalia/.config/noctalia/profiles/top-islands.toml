@@ -20,7 +20,7 @@ end = ["group:right"]
 
 [[bar.main.capsule_group]]
 id = "left"
-members = ["os-logo", "launcher", "workspaces"]
+members = ["os-logo", "workspaces"]
 fill = "surface"
 opacity = 0.92
 radius = 18
@@ -36,7 +36,7 @@ padding = 12
 
 [[bar.main.capsule_group]]
 id = "right"
-members = ["network", "notifications", "volume", "battery", "control-center", "session"]
+members = ["network", "notifications", "volume", "battery", "bar-profile", "control-center", "session"]
 fill = "surface"
 opacity = 0.92
 radius = 18

@@ -89,5 +89,15 @@ function update()
   barWidget.render(ui.row({ align = "center" }, {
     renderLogo(),
   }))
-  barWidget.setTooltip(osName)
+  barWidget.setTooltip({
+    { key = "System", value = osName },
+    { key = "Launcher", value = "Click  /  Mod+Ctrl+Enter" },
+    { key = "Niri", value = "keys n  /  Mod+Shift+Esc" },
+    { key = "tmux", value = "keys t  /  Prefix+?" },
+    { key = "Ghostty", value = "keys g" },
+  })
+end
+
+function onClick()
+  noctalia.runAsync("noctalia msg panel-toggle launcher")
 end

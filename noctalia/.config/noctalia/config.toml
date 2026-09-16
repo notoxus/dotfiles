@@ -181,6 +181,9 @@ inactive_opacity = 0.7 # 0.75
 [widget.os-logo]
 type = "notoxus/os-logo:bar"
 
+[widget.bar-profile]
+type = "notoxus/bar-profiles:switcher"
+
 [widget.clock]
 format = "{:%H:%M:%S}"
 tooltip_format = "{:%A, %B %d, %Y}"

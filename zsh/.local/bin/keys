@@ -3,12 +3,22 @@
 show_usage() {
   cat <<'EOF'
 Usage:
+  keys n    Open Niri's keybinding overlay
   keys g    Search Ghostty's default keybindings
-  keys t    Show how to open tmux's built-in keybinding help
+  keys t    Search tmux's keybindings (run inside tmux)
 EOF
 }
 
 case "${1:-}" in
+  n|niri)
+    if (( ! $+commands[niri] )); then
+      print -u2 "keys: niri is not installed"
+      exit 1
+    fi
+
+    niri msg action show-hotkey-overlay
+    ;;
+
   g|ghostty)
     if (( ! $+commands[ghostty] )); then
       print -u2 "keys: ghostty is not installed"
@@ -43,7 +53,23 @@ case "${1:-}" in
     ;;
 
   t|tmux)
-    print "Inside tmux, press Ctrl+B, release it, then press ?"
+    if [[ -z "${TMUX:-}" ]]; then
+      print "Run 'keys t' inside tmux, or press Ctrl+B, release it, then press ?"
+      exit 1
+    fi
+
+    if (( ! $+commands[fzf] )); then
+      print -u2 "keys: fzf is not installed"
+      exit 1
+    fi
+
+    tmux list-keys -N -T prefix |
+      fzf \
+        --prompt='tmux keybinds > ' \
+        --layout=reverse \
+        --border \
+        --info=inline \
+        --header='KEY                      DESCRIPTION'
     ;;
 
   -h|--help|"")

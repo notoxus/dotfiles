@@ -20,12 +20,14 @@ source ~/.config/zsh/.zshrc
 ## Shortcut discovery
 
 ```sh
+keys n
 keys g
 keys t
 ```
 
+- `keys n` opens Niri's keybinding overlay.
 - `keys g` searches Ghostty's default keybindings with fzf.
-- `keys t` reminds you how to open tmux's built-in keybinding help.
+- `keys t` searches tmux's prefix keybindings with fzf when run inside tmux.
 - `Mod+Shift+Esc` opens Niri's built-in keybinding overlay.
 
 For easier comparison...Let's see [keybinds-cheetsheet.md](docs/keybinds-cheetsheet.md) for the compact Niri, tmux, and Neovim keymap.
@@ -63,5 +65,10 @@ over the tracked `~/.config/noctalia/config.toml` values.
 
 Bar layouts live under `~/.config/noctalia/profiles/`. The active layout is
 selected by `bar-profile.toml` and can be changed from the local Bar Profiles
-plugin shortcut in Control Center. If a selected profile does not appear,
+widget on the bar: left-click cycles profiles, right-click opens the picker,
+and scrolling cycles in either direction. The same picker can optionally be
+added under Settings → Control Center → Shortcuts. If a selected profile does not appear,
 remove stale bar overrides from the Noctalia Settings UI state.
+
+The OS logo is also the launcher button. Hover it for the OS name and shortcut
+hints, or left-click it to open the launcher (`Mod+Ctrl+Enter`).
