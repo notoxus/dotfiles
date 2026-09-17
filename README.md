@@ -74,15 +74,20 @@ timestamped tree under `~/.dotfiles-backup/` before the new file is copied.
 ### Enable the Noctalia plugins
 
 The `noctalia` component includes the local `notoxus/os-logo`,
-`notoxus/bar-profiles`, and `notoxus/media-island` plugins. After copying the
-component, enable them once:
+`notoxus/bar-profiles`, `notoxus/media-island`, and
+`notoxus/vietnamese-lunar-calendar` plugins. After copying the component, enable
+them once:
 
 ```sh
 ./install noctalia
 noctalia msg plugins enable notoxus/os-logo
 noctalia msg plugins enable notoxus/bar-profiles
 noctalia msg plugins enable notoxus/media-island
+noctalia msg plugins enable notoxus/vietnamese-lunar-calendar
 ```
+
+The lunar calendar plugin provides a Control Center shortcut, a floating
+monthly calendar panel, and an optional bar widget for today's lunar date.
 
 The icon-only Appearance widget is shown directly on every tracked bar. Click
 it to choose a built-in theme, dark/light/automatic mode, and bar layout, then

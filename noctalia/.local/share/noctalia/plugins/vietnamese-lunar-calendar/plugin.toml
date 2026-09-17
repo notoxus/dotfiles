@@ -1,0 +1,28 @@
+id = "notoxus/vietnamese-lunar-calendar"
+name = "Vietnamese Lunar Calendar"
+version = "0.1.0"
+plugin_api = 22
+author = "notoxus"
+license = "MIT"
+dependencies = []
+tags = ["panel", "shortcut", "bar", "time", "utility"]
+icon = "moon-stars"
+description = "Vietnamese lunar calendar with lunar dates, Can Chi and traditional festivals."
+
+[[widget]]
+id = "lunar"
+entry = "widget.luau"
+
+[[shortcut]]
+id = "calendar-shortcut"
+entry = "shortcut.luau"
+
+[[panel]]
+id = "calendar"
+entry = "panel.luau"
+width = 560
+height = 610
+placement = "floating"
+position = "center"
+open_near_click = true
+dismiss_on_outside_click = true

@@ -20,7 +20,7 @@ local function selectRow(label, options, selectedIndex, onChange)
         ui.select({
             options = options,
             selectedIndex = selectedIndex,
-            width = 230,
+            width = 260,
             controlSize = "md",
             onChange = onChange,
         }),

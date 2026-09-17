@@ -151,7 +151,7 @@
   # system.copySystemConfiguration = true;
   nixpkgs.config.allowUnfreePredicate = pkg:
   builtins.elem (lib.getName pkg) [
-    "libsciter"
+    "davinci-resolve"
   ];
   fonts.packages = with pkgs; [
      nerd-fonts.jetbrains-mono
