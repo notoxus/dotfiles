@@ -15,12 +15,12 @@ local function indexOf(values, wanted)
 end
 
 local function selectRow(label, options, selectedIndex, onChange)
-    return ui.row({ gap = 12, align = "center" }, {
+    return ui.row({ gap = 16, align = "center" }, {
         ui.label({ text = label, flexGrow = 1 }),
         ui.select({
             options = options,
             selectedIndex = selectedIndex,
-            width = 260,
+            width = 240,
             controlSize = "md",
             onChange = onChange,
         }),
@@ -28,16 +28,16 @@ local function selectRow(label, options, selectedIndex, onChange)
 end
 
 local function render()
-    panel.render(ui.column({ gap = 14, padding = 16, fill = "surface" }, {
+    panel.render(ui.column({ gap = 12, padding = 18 }, {
         ui.row({ align = "center", justify = "space_between" }, {
-            ui.label({ text = "Appearance", fontSize = 18, fontWeight = "bold", color = "primary", flexGrow = 1 }),
+            ui.label({ text = "Appearance", fontSize = 20, fontWeight = "bold", color = "primary", flexGrow = 1 }),
             ui.button({ glyph = "x", variant = "ghost", onClick = "closePanel" }),
         }),
         ui.label({
             text = "Choose a palette, color mode, and bar layout. Changes are applied together.",
             color = "on_surface/0.7",
         }),
-        ui.separator({ spacing = 4 }),
+        ui.separator({ spacing = 2 }),
         selectRow("Theme", appearance.builtinThemes, selectedTheme, "selectTheme"),
         selectRow("Mode", { "Dark", "Light", "Auto" }, selectedMode, "selectMode"),
         selectRow("Bar", profileLabels, selectedProfile, "selectProfile"),

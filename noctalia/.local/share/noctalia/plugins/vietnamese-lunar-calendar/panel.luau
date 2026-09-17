@@ -10,6 +10,9 @@ local MONTH_NAMES = {
 
 local viewMonth = tonumber(noctalia.formatTime("%m"))
 local viewYear = tonumber(noctalia.formatTime("%Y"))
+local selectedDay = nil
+local selectedMonth = nil
+local selectedYear = nil
 
 local function today()
     return tonumber(noctalia.formatTime("%d")),
@@ -27,6 +30,12 @@ local function goMonth(delta)
         viewMonth = 1
         viewYear = viewYear + 1
     end
+
+    if selectedDay ~= nil then
+        selectedDay = math.min(selectedDay, lunar.daysInSolarMonth(viewMonth, viewYear))
+        selectedMonth = viewMonth
+        selectedYear = viewYear
+    end
 end
 
 local function lunarText(l)
@@ -36,8 +45,32 @@ local function lunarText(l)
     return tostring(l.day)
 end
 
+local FESTIVAL_LABELS = {
+    ["Tết Nguyên Đán"] = "Tết",
+    ["Rằm tháng Giêng"] = "Rằm T.Giêng",
+    ["Tết Hàn Thực"] = "Hàn Thực",
+    ["Giỗ Tổ Hùng Vương"] = "Giỗ Tổ",
+    ["Tết Đoan Ngọ"] = "Đoan Ngọ",
+    ["Lễ Vu Lan"] = "Vu Lan",
+    ["Tết Trung Thu"] = "Trung Thu",
+    ["Ông Công Ông Táo"] = "Ông Táo",
+}
+
+local function festivalLabel(name)
+    return FESTIVAL_LABELS[name] or name
+end
+
 local function render()
     local todayDay, todayMonth, todayYear = today()
+    if selectedDay == nil then
+        selectedDay = todayDay
+        selectedMonth = todayMonth
+        selectedYear = todayYear
+    end
+    local showFestivals = noctalia.getConfig("show_festivals") ~= false
+    local showCanChi = noctalia.getConfig("show_can_chi") ~= false
+    local accentWeekends = noctalia.getConfig("accent_weekends") ~= false
+    local showTimezone = noctalia.getConfig("show_timezone") ~= false
 
     local children = {}
 
@@ -56,12 +89,12 @@ local function render()
         }),
         ui.column({ align = "center", gap = 2 }, {
             ui.label({
-                text = MONTH_NAMES[viewMonth] .. " " .. tostring(viewYear),
-                fontSize = 20,
+                text = MONTH_NAMES[viewMonth] .. "  ·  " .. tostring(viewYear),
+                fontSize = 19,
                 fontWeight = "bold",
             }),
             ui.label({
-                text = "Âm lịch Việt Nam · UTC+7",
+                text = showTimezone and "Âm lịch Việt Nam · UTC+7" or "Âm lịch Việt Nam",
                 fontSize = 12,
                 color = "on_surface/0.6",
             }),
@@ -86,7 +119,7 @@ local function render()
             fontWeight = "bold",
             textAlign = "center",
             flexGrow = 1,
-            color = i >= 6 and "primary" or "on_surface/0.7",
+            color = accentWeekends and i >= 6 and "primary" or "on_surface/0.7",
         }))
     end
     table.insert(children, ui.row({ gap = 4 }, weekdayNodes))
@@ -102,26 +135,32 @@ local function render()
             local day = cell - firstWeekday + 1
 
             if day < 1 or day > days then
-                table.insert(row, ui.box({
+                table.insert(row, ui.column({
                     key = "blank-" .. tostring(week) .. "-" .. tostring(weekday),
-                    height = 64,
+                    minHeight = 56,
                     flexGrow = 1,
-                }))
+                }, {}))
             else
                 local l = lunar.solarToLunar(day, viewMonth, viewYear, 7)
-                local festival = lunar.festival(l)
+                local festival = showFestivals and lunar.festival(l) or nil
                 local isToday =
                     day == todayDay
                     and viewMonth == todayMonth
                     and viewYear == todayYear
+                local isSelected =
+                    day == selectedDay
+                    and viewMonth == selectedMonth
+                    and viewYear == selectedYear
 
                 local dayChildren = {
                     ui.label({
                         text = tostring(day),
                         fontSize = 16,
-                        fontWeight = isToday and "bold" or "medium",
+                        fontWeight = (isToday or isSelected) and "bold" or "medium",
                         textAlign = "center",
-                        color = isToday and "primary" or "on_surface",
+                        color = (isToday or isSelected) and "primary"
+                            or accentWeekends and weekday >= 6 and "primary/0.85"
+                            or "on_surface",
                     }),
                     ui.label({
                         text = lunarText(l),
@@ -133,8 +172,8 @@ local function render()
 
                 if festival then
                     table.insert(dayChildren, ui.label({
-                        text = festival,
-                        fontSize = 9,
+                        text = festivalLabel(festival),
+                        fontSize = 8,
                         maxLines = 1,
                         textAlign = "center",
                         color = "primary",
@@ -144,17 +183,24 @@ local function render()
                 table.insert(row, ui.column({
                     key = "day-" .. tostring(day),
                     gap = 1,
-                    padding = 5,
-                    minHeight = 64,
+                    padding = 4,
+                    minHeight = 56,
                     flexGrow = 1,
-                    radius = 10,
-                    fill = isToday and "primary/0.12"
-                        or festival and "surface_variant/0.55"
-                        or "transparent",
-                    border = isToday and "primary" or "transparent",
-                    borderWidth = isToday and 1 or 0,
+                    radius = 8,
+                    fill = isSelected and "primary/0.18"
+                        or isToday and "surface/0"
+                        or festival and "surface_variant/0.40"
+                        or "surface/0",
+                    border = (isSelected or isToday) and "primary" or "outline/0",
+                    borderWidth = (isSelected or isToday) and 1 or 0,
                     align = "center",
                     justify = "center",
+                    onClick = function()
+                        selectedDay = day
+                        selectedMonth = viewMonth
+                        selectedYear = viewYear
+                        render()
+                    end,
                 }, dayChildren))
             end
 
@@ -168,8 +214,20 @@ local function render()
         end
     end
 
-    local selectedLunar = lunar.solarToLunar(todayDay, todayMonth, todayYear, 7)
-    local festival = lunar.festival(selectedLunar)
+    local selectedLunar = lunar.solarToLunar(selectedDay, selectedMonth, selectedYear, 7)
+    local festival = showFestivals and lunar.festival(selectedLunar) or nil
+    local lunarDetails = string.format(
+        "%02d/%02d%s âm lịch",
+        selectedLunar.day,
+        selectedLunar.month,
+        selectedLunar.leap and " nhuận" or ""
+    )
+    if showCanChi then
+        lunarDetails = lunarDetails .. " · Năm " .. lunar.yearCanChi(selectedLunar.year)
+    end
+    if festival then
+        lunarDetails = lunarDetails .. " · " .. festival
+    end
 
     table.insert(children, ui.separator({ spacing = 4 }))
 
@@ -181,20 +239,16 @@ local function render()
         ui.column({ gap = 2, flexGrow = 1 }, {
             ui.label({
                 text = string.format(
-                    "Hôm nay: %02d/%02d/%d · %02d/%02d%s âm lịch",
-                    todayDay,
-                    todayMonth,
-                    todayYear,
-                    selectedLunar.day,
-                    selectedLunar.month,
-                    selectedLunar.leap and " nhuận" or ""
+                    "%02d tháng %02d, %d",
+                    selectedDay,
+                    selectedMonth,
+                    selectedYear
                 ),
                 fontSize = 13,
                 fontWeight = "medium",
             }),
             ui.label({
-                text = "Năm " .. lunar.yearCanChi(selectedLunar.year)
-                    .. (festival and (" · " .. festival) or ""),
+                text = lunarDetails,
                 fontSize = 12,
                 color = "on_surface/0.65",
             }),
@@ -207,18 +261,27 @@ local function render()
             onClick = function()
                 viewMonth = todayMonth
                 viewYear = todayYear
+                selectedDay = todayDay
+                selectedMonth = todayMonth
+                selectedYear = todayYear
                 render()
             end,
         }),
     }))
 
     panel.render(ui.column({
-        gap = 10,
-        padding = 14,
+        gap = 8,
+        padding = 16,
     }, children))
 end
 
 function onOpen(context)
+    local todayDay, todayMonth, todayYear = today()
+    viewMonth = todayMonth
+    viewYear = todayYear
+    selectedDay = todayDay
+    selectedMonth = todayMonth
+    selectedYear = todayYear
     render()
 end
 

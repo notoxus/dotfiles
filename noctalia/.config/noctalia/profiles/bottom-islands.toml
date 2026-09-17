@@ -26,6 +26,9 @@ start = ["group:left"]
 center = ["group:center", "group:media-compact"]
 end = ["group:right"]
 
+[widget.taskbar]
+pinned = ["nautilus"]
+
 [[bar.main.capsule_group]]
 id = "left"
 members = ["os-logo", "workspaces", "taskbar"]

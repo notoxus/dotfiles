@@ -12,8 +12,8 @@ description = "Apply a Noctalia theme, color mode, and bar layout from one compa
 [[panel]]
 id = "profile-picker"
 entry = "panel.luau"
-width = 460
-height = 340
+width = 440
+height = 380
 placement = "floating"
 position = "center"
 dismiss_on_outside_click = true

@@ -5,11 +5,12 @@ A small Noctalia v5 plugin for the **Vietnamese lunar calendar**.
 It provides:
 
 - a Control Center shortcut named **Âm lịch**
-- a floating monthly calendar panel
+- an attached monthly calendar panel that opens near its trigger
 - lunar day/month shown below each Gregorian date
 - leap-month marker (`N`)
 - Can Chi year name
 - common Vietnamese traditional festivals
+- selectable dates with solar and lunar details in the footer
 - an optional bar widget showing the Gregorian date as `17 Sep`
 
 ## Plugin
@@ -48,7 +49,18 @@ Add the **Âm lịch** shortcut in:
 Settings → Control Center → Shortcuts
 ```
 
-Optionally add the lunar widget to the bar.
+Optionally add the date widget to the bar. It displays a compact Gregorian date
+and opens the lunar calendar when clicked.
+
+Click any date in the calendar to inspect its lunar date. Use the arrow buttons
+to change month and **Hôm nay** to return to the current date.
+
+## Settings
+
+Configure the plugin in **Settings → Plugins → Vietnamese Lunar Calendar**.
+The plugin can show or hide traditional festivals, the Can Chi year, weekend
+accents, and the UTC+7 calculation label. Enable **Advanced** in Settings to
+show the latter three options.
 
 You can open the panel directly with:
 

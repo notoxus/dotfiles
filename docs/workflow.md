@@ -20,17 +20,16 @@ source ~/.config/zsh/.zshrc
 ## Shortcut discovery
 
 ```sh
-keys n
 keys g
 keys t
 ```
 
-- `keys n` opens Niri's keybinding overlay.
 - `keys g` searches Ghostty's default keybindings with fzf.
 - `keys t` searches tmux's prefix keybindings with fzf when run inside tmux.
 - `Mod+Shift+Esc` opens Niri's built-in keybinding overlay.
 
-For easier comparison...Let's see [keybinds-cheetsheet.md](docs/keybinds-cheetsheet.md) for the compact Niri, tmux, and Neovim keymap.
+See [keybinds-cheatsheet.md](keybinds-cheatsheet.md) for a compact Niri, tmux,
+and Neovim keymap.
 
 ## Ghostty and tmux
 
@@ -79,8 +78,9 @@ It includes artwork, track information, playback-aware controls, and a native
 PipeWire audio visualizer.
 Its opacity follows the selected bar profile. Top-bar profiles keep media
 within the main bar instead. On bottom profiles, the persistent collapsed state
-is a compact media pill with a hover-scroll title and a live audio visualizer inside
-the main bar; only the short expanded state uses the attached top-edge surface.
+is a compact media pill with a hover-scroll title and a live audio visualizer
+inside the main bar; only the short expanded state uses the attached top-edge
+surface.
 
 The profile list is deliberately limited to `bottom`, `bottom-islands`, `top`,
 `top-islands`, and `side`. The side profile pairs its left bar with a visible

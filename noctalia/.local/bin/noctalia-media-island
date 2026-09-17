@@ -50,24 +50,41 @@ done
 # is merely paused or stopped.
 playing=0
 signal_block=""
-while IFS= read -r line; do
-  if [[ -z "$line" ]]; then
-    if [[ "$signal_block" == *'string "PlaybackStatus"'* ]]; then
-      if [[ "$signal_block" == *'string "Playing"'* ]]; then
-        playing=1
-      else
-        playing=0
-      fi
-      [[ "$playing" == 1 ]] && show_briefly
-    elif [[ "$playing" == 1 && "$signal_block" == *'string "Metadata"'* ]]; then
-      show_briefly
+
+process_signal_block() {
+  local block="$1"
+  [[ -z "$block" ]] && return
+
+  if [[ "$block" == *'string "PlaybackStatus"'* ]]; then
+    if [[ "$block" == *'string "Playing"'* ]]; then
+      playing=1
+    else
+      playing=0
     fi
+    [[ "$playing" == 1 ]] && show_briefly
+  elif [[ "$playing" == 1 && "$block" == *'string "Metadata"'* ]]; then
+    show_briefly
+  fi
+}
+
+while IFS= read -r line; do
+  if [[ "$line" == signal\ * ]]; then
+    # Some dbus-monitor versions do not print a blank separator between
+    # signals. Flush the previous block before starting the next one.
+    process_signal_block "$signal_block"
+    signal_block="$line"
+    continue
+  fi
+
+  if [[ -z "$line" ]]; then
+    process_signal_block "$signal_block"
     signal_block=""
     continue
   fi
-  [[ "$line" == signal\ * ]] && signal_block="$line"
-  [[ -n "$signal_block" && "$line" != signal\ * ]] && signal_block+=" $line"
+  [[ -n "$signal_block" ]] && signal_block+=" $line"
 done < <(
   dbus-monitor --session \
     "type='signal',interface='org.freedesktop.DBus.Properties',member='PropertiesChanged',arg0='org.mpris.MediaPlayer2.Player'"
 )
+
+process_signal_block "$signal_block"

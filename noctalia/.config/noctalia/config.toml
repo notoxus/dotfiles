@@ -95,7 +95,7 @@ enable_sounds = false
 enable_ddcutil = false
 
 [plugins]
-enabled = ["notoxus/os-logo", "notoxus/bar-profiles", "notoxus/media-island"]
+enabled = ["notoxus/os-logo", "notoxus/bar-profiles", "notoxus/media-island", "notoxus/vietnamese-lunar-calendar", "ashur-d/wallpaper-widget"]
 
 [[control_center.shortcuts]]
 type = "wifi"
@@ -110,7 +110,7 @@ type = "nightlight"
 type = "notification"
 
 [[control_center.shortcuts]]
-type = "wallpaper"
+type = "ashur-d/wallpaper-widget:toggle"
 
 [[control_center.shortcuts]]
 type = "session"
@@ -257,4 +257,4 @@ format = "{:%H:%M:%S}"
 tooltip_format = "{:%A, %B %d, %Y}"
 
 [widget.clock.actions]
-left = "panel-toggle control-center calendar"
+left = "panel-toggle notoxus/vietnamese-lunar-calendar:calendar"

@@ -14,7 +14,7 @@
 | `Mod + Return` | Ghostty |
 | `Mod + Ctrl + Return` | Noctalia launcher |
 | `Mod + B` | Firefox |
-| `Mod + E` | Yazi in Ghostty |
+| `Mod + E` | Nautilus |
 | `Mod + Alt + L` | Lock screen |
 | `Mod + Shift + Q` | Session menu |
 | `Mod + Q` | Close window |

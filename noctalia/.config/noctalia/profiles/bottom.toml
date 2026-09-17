@@ -25,6 +25,9 @@ start = ["os-logo", "workspaces", "taskbar"]
 center = ["group:media-compact"]
 end = ["network", "notifications", "volume", "battery", "clock", "bar-profile", "control-center", "session"]
 
+[widget.taskbar]
+pinned = ["nautilus"]
+
 [[bar.main.capsule_group]]
 id = "media-compact"
 members = ["media-compact", "media-wave-compact"]

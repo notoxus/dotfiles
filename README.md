@@ -1,18 +1,21 @@
 # Notoxus Dotfiles 🌸
 
-Personal ricing for my Wayland desktop.
+Portable dotfiles for my Wayland desktop, shared by my Arch Linux and NixOS
+setups.
 
 | Area | Current setup |
 |---|---|
-| Distribution | Arch Linux (or NixOS, coz I use them in parallel) |
+| Distribution | NixOS and Arch Linux |
 | Compositor | Niri (primary), Umbriel (experimental) |
 | Desktop shell | Noctalia v5 |
 | Shell | Zsh, Starship, zoxide, and fzf |
 | Terminal | Ghostty and tmux |
 
-`Why did I decide to adapt to Umbriel?`
+### Why Umbriel?
 
-- It's synchronized with the Noctalia shell, and I also think it's pretty 👍👍👍
+It shares the Noctalia ecosystem with Niri, and I also think it looks pretty
+good. Umbriel support remains experimental, so it is not part of the default
+installation set yet.
 
 ## Installation
 
@@ -22,6 +25,7 @@ cd ~/dotfiles
 chmod +x ./install
 ./install list
 ```
+
 ## Requirements
 
 | Component | Main requirements |
@@ -41,7 +45,7 @@ chmod +x ./install
 
 ### Check dependencies
 
-Before get started, inspect every component:
+Before getting started, inspect the default daily-driver components:
 
 ```sh
 ./install check all
@@ -52,15 +56,19 @@ Specific:
 ```sh
 ./install check <component 1> <component 2> <component ...>
 ```
-[Click here!](docs/requirements.md)
+See the [dependency installation guide](docs/requirements.md) for upstream
+installation links.
 
 ### Copy files
 
-Install the default components:
+Install the default daily-driver components:
 
 ```sh
 ./install all
 ```
+
+`btop` and the experimental `umbriel` configuration remain opt-in and can be
+deployed explicitly.
 
 Specific:
 
@@ -75,19 +83,20 @@ timestamped tree under `~/.dotfiles-backup/` before the new file is copied.
 
 The `noctalia` component includes the local `notoxus/os-logo`,
 `notoxus/bar-profiles`, `notoxus/media-island`, and
-`notoxus/vietnamese-lunar-calendar` plugins. After copying the component, enable
-them once:
+`notoxus/vietnamese-lunar-calendar` plugins. They are already enabled by the
+tracked configuration, so deploying the component is normally enough:
 
 ```sh
 ./install noctalia
-noctalia msg plugins enable notoxus/os-logo
-noctalia msg plugins enable notoxus/bar-profiles
-noctalia msg plugins enable notoxus/media-island
-noctalia msg plugins enable notoxus/vietnamese-lunar-calendar
 ```
 
-The lunar calendar plugin provides a Control Center shortcut, a floating
-monthly calendar panel, and an optional bar widget for today's lunar date.
+The configuration also uses the community `ashur-d/wallpaper-widget` plugin.
+Install that plugin through Noctalia's community plugin browser on a fresh
+machine.
+
+The lunar calendar plugin provides a Control Center shortcut, an attached
+monthly calendar panel, and an optional Gregorian date widget that opens the
+lunar calendar.
 
 The icon-only Appearance widget is shown directly on every tracked bar. Click
 it to choose a built-in theme, dark/light/automatic mode, and bar layout, then
@@ -96,9 +105,10 @@ Control Center → Shortcuts, replacing one of the six existing shortcuts. The
 five tracked profiles are `bottom`, `bottom-islands`, `top`, `top-islands`, and
 `side`. Layouts without a top bar show active media in a top-center island
 attached flush to the screen edge for 1.5 seconds after playback changes, with
-playback-aware controls and an audio visualizer; the watcher then hides the expanded overlay while
-the compact media pill remains in the main bar. The side layout adds a visible
-macOS-style dock on the right, while top islands uses the same dock auto-hidden.
+playback-aware controls and an audio visualizer. The watcher then hides the
+expanded overlay while the compact media pill remains in the main bar. The side
+layout adds a visible macOS-style dock on the right, while top islands uses the
+same dock auto-hidden.
 
 The OS logo replaces the separate launcher icon on every profile. Hover it for
 the OS name and shortcut hints; left-click it to open the Noctalia launcher.
@@ -119,16 +129,16 @@ tmux
 
 ### Terminal workflow
 
-`fastfetch`, `nvim`, and `yazi` are installed by `all`. `btop` remains a
-specific component:
+The `fastfetch`, `nvim`, and `yazi` configurations are deployed by `all`.
+`btop` remains an opt-in component:
 
 ```sh
 ./install btop
 ```
 
-`Mod + E` opens Yazi in Ghostty. In Zsh, use `y` to continue in the directory
-selected in Yazi; quit Yazi with `q` to change directory or `Q` to keep the
-current one.
+`Mod + E` opens Nautilus. Run `y` in Zsh to launch Yazi and continue in the
+directory selected there; quit Yazi with `q` to change directory or `Q` to keep
+the current one.
 
 ### Optional command-line tools
 
@@ -148,23 +158,24 @@ On Arch Linux:
 sudo pacman -Syu eza lazygit bat git-delta dust
 ```
 
-### Some useful applications that I'd love
+### Desktop applications
 
-Including: OBS Studio, Rnote, Gaphor, LibreOffice, and Zotero.
+The NixOS Home Manager package list already includes OBS Studio, Rnote, Gaphor,
+RustDesk, and Eclipse. Add optional applications such as LibreOffice or Zotero
+to [`nixos-cfg/home/packages.nix`](nixos-cfg/home/packages.nix) when wanted.
 
-If you use NixOS, you just have to uncomment them in /etc/nixos/vm/configuration.nix
-
-BentoPDF for handling PDFs and Fcitx5 Lotus (Nguyen Ky) for Vietnamese typing:
+BentoPDF handles PDFs, while Fcitx5 Lotus (Nguyen Ky) provides Vietnamese
+input:
 
 - [BentoPDF](https://github.com/alam00000/bentopdf)
 - [fcitx5-lotus](https://github.com/LotusInputMethod/fcitx5-lotus)
 
 ### Symlink files
 
-- Use symlinks only when the repository should act as the live configuration:
-- Each component mirrors its destination relative to `$HOME`:
+Use symlinks only when the repository should act as the live configuration.
+Each component mirrors its destination relative to `$HOME`.
 
-`Ex:`
+Example:
 
 ```text
 ghostty/.config/ghostty/config.ghostty
@@ -175,6 +186,7 @@ ghostty/.config/ghostty/config.ghostty
 ```sh
 ./install --link all
 ```
+
 ```sh
 ./install --link <component 1> <component 2> <component ...>
 ```
@@ -194,6 +206,7 @@ Preview either mode without changing `$HOME`:
 | `fastfetch` | Terminal system snapshot |
 | `ghostty` | Primary terminal |
 | `niri` | Primary compositor |
+| `nixos-cfg` | Host-specific NixOS and Home Manager configuration |
 | `nvim` | Neovim configuration |
 | `noctalia` | Shell and bar for Niri and Umbriel |
 | `starship` | Shell prompt |
@@ -201,6 +214,15 @@ Preview either mode without changing `$HOME`:
 | `umbriel` | Experimental compositor |
 | `yazi` | Terminal file manager |
 | `zsh` | Shell configuration and the `keys` helper |
+
+## Configuration ownership
+
+The standalone component files are intentionally the portable source for
+non-NixOS systems such as Arch Linux. Home Manager installs packages and
+system integrations for the current NixOS host; it does not replace the
+cross-distribution dotfiles. The files under `nixos-cfg` contain the current
+machine's username, host name, hardware configuration, and package choices, so
+review them before applying the flake on another machine.
 
 [Git and GitHub SSH setup guide](docs/git-ssh-setup.md)
 

@@ -92,7 +92,7 @@ function update()
   barWidget.setTooltip({
     { key = "System", value = osName },
     { key = "Launcher", value = "Click  /  Mod+Ctrl+Enter" },
-    { key = "Niri", value = "keys n  /  Mod+Shift+Esc" },
+    { key = "Niri", value = "Mod+Shift+Esc" },
     { key = "tmux", value = "keys t  /  Prefix+?" },
     { key = "Ghostty", value = "keys g" },
   })

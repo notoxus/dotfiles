@@ -3,22 +3,12 @@
 show_usage() {
   cat <<'EOF'
 Usage:
-  keys n    Open Niri's keybinding overlay
   keys g    Search Ghostty's default keybindings
   keys t    Search tmux's keybindings (run inside tmux)
 EOF
 }
 
 case "${1:-}" in
-  n|niri)
-    if (( ! $+commands[niri] )); then
-      print -u2 "keys: niri is not installed"
-      exit 1
-    fi
-
-    niri msg action show-hotkey-overlay
-    ;;
-
   g|ghostty)
     if (( ! $+commands[ghostty] )); then
       print -u2 "keys: ghostty is not installed"
