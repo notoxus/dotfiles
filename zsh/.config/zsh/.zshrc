@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════════════════════
-#  Zsh configuration
+#  Standalone Zsh configuration
 #  ZDOTDIR is bootstrapped from ~/.zshenv
 # ═══════════════════════════════════════════════════════════════════
 
@@ -125,7 +125,9 @@ source_first_readable() {
 source_first_readable \
   /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh \
   /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
+  "$HOME/.nix-profile/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" \
   "$HOME/.nix-profile/share/zsh-autosuggestions/zsh-autosuggestions.zsh" \
+  /run/current-system/sw/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh \
   /run/current-system/sw/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Keep syntax highlighting last.

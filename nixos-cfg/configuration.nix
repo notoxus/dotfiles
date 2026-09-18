@@ -155,6 +155,9 @@
   ];
   fonts.packages = with pkgs; [
      nerd-fonts.jetbrains-mono
+     (google-fonts.override {
+       fonts = [ "Be Vietnam Pro" ];
+     })
      noto-fonts
      noto-fonts-cjk-sans
      noto-fonts-color-emoji
@@ -166,7 +169,7 @@
       "Noto Color Emoji"
     ];
     sansSerif = [
-      "JetBrainsMono Nerd Font"
+      "Be Vietnam Pro"
       "Noto Sans"
       "Noto Sans CJK SC"
       "Noto Color Emoji"

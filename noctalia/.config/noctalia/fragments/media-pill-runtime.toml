@@ -1,0 +1,16 @@
+# Managed at runtime by the Media Island plugin. Native media rendering keeps
+# the title marquee pixel-smooth; the service changes its mode on Play/Pause.
+[widget.media-compact]
+type = "media"
+hide_when_no_media = true
+capsule = false
+min_length = 120
+max_length = 150
+art_size = 18
+hide_artist = true
+title_scroll = "on_hover"
+show_progress = true
+
+[widget.media-compact.actions]
+left = "exec $HOME/.local/bin/noctalia-media-island show"
+right = "media toggle"

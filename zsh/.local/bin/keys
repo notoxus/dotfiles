@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+# Portable helper shipped with the standalone Zsh component.
+
 show_usage() {
   cat <<'EOF'
 Usage:

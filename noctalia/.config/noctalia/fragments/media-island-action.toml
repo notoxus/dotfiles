@@ -1,0 +1,4 @@
+# Managed at runtime by the Media Island plugin. The tracked default preserves
+# the native widget anchor so Control Center opens directly below the island.
+[widget.media-island.actions]
+left = "panel-toggle control-center media"

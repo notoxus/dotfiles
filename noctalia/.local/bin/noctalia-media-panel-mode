@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+# Synchronize native media widget behavior with Media Island plugin settings.
+# Native rendering supplies the smooth marquee; this helper only changes modes
+# when playback or a setting changes.
+
+set -euo pipefail
+
+readonly panel_mode="${1:-attached}"
+readonly scroll_mode="${2:-on_hover}"
+readonly pill_click_mode="${3:-island}"
+readonly config_home="${XDG_CONFIG_HOME:-${HOME}/.config}"
+readonly fragment_dir="${config_home}/noctalia/fragments"
+readonly panel_target="${fragment_dir}/media-island-action.toml"
+readonly pill_target="${fragment_dir}/media-pill-runtime.toml"
+
+case "$panel_mode" in
+  attached)
+    readonly panel_action="panel-toggle control-center media"
+    ;;
+  default)
+    # Going through the CLI deliberately drops the source-widget anchor, so
+    # Noctalia falls back to its normal panel location.
+    readonly panel_action="exec noctalia msg panel-toggle control-center media"
+    ;;
+  *)
+    printf 'unknown media panel mode: %s\n' "$panel_mode" >&2
+    exit 2
+    ;;
+esac
+
+case "$scroll_mode" in
+  always | on_hover) ;;
+  *)
+    printf 'unknown media pill scroll mode: %s\n' "$scroll_mode" >&2
+    exit 2
+    ;;
+esac
+
+case "$pill_click_mode" in
+  island)
+    readonly pill_action='exec $HOME/.local/bin/noctalia-media-island show'
+    ;;
+  panel)
+    readonly pill_action="panel-toggle control-center media"
+    ;;
+  *)
+    printf 'unknown media pill click mode: %s\n' "$pill_click_mode" >&2
+    exit 2
+    ;;
+esac
+
+mkdir -p "$fragment_dir"
+panel_temporary="$(mktemp "${fragment_dir}/.media-island-action.XXXXXX")"
+pill_temporary="$(mktemp "${fragment_dir}/.media-pill-runtime.XXXXXX")"
+trap 'rm -f "$panel_temporary" "$pill_temporary"' EXIT
+
+printf '%s\n%s\n' \
+  '# Managed at runtime by the Media Island plugin.' \
+  '[widget.media-island.actions]' >"$panel_temporary"
+printf 'left = "%s"\n' "$panel_action" >>"$panel_temporary"
+
+printf '%s\n' \
+  '# Managed at runtime by the Media Island plugin.' \
+  '[widget.media-compact]' \
+  'type = "media"' \
+  'hide_when_no_media = true' \
+  'capsule = false' \
+  'min_length = 120' \
+  'max_length = 150' \
+  'art_size = 18' \
+  'hide_artist = true' >"$pill_temporary"
+printf 'title_scroll = "%s"\n' "$scroll_mode" >>"$pill_temporary"
+printf '%s\n' \
+  'show_progress = true' \
+  '' \
+  '[widget.media-compact.actions]' >>"$pill_temporary"
+printf 'left = "%s"\n' "$pill_action" >>"$pill_temporary"
+printf '%s\n' 'right = "media toggle"' >>"$pill_temporary"
+
+changed=0
+if [[ ! -r "$panel_target" ]] || ! cmp -s "$panel_temporary" "$panel_target"; then
+  chmod 0644 "$panel_temporary"
+  mv -f "$panel_temporary" "$panel_target"
+  changed=1
+else
+  rm -f "$panel_temporary"
+fi
+
+if [[ ! -r "$pill_target" ]] || ! cmp -s "$pill_temporary" "$pill_target"; then
+  chmod 0644 "$pill_temporary"
+  mv -f "$pill_temporary" "$pill_target"
+  changed=1
+else
+  rm -f "$pill_temporary"
+fi
+
+trap - EXIT
+if [[ "$changed" == 1 && "${NOCTALIA_MEDIA_CONFIG_NO_RELOAD:-0}" != 1 ]]; then
+  noctalia msg config-reload >/dev/null 2>&1 || true
+fi

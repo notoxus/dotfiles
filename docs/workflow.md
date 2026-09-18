@@ -2,6 +2,10 @@
 
 ## Shell
 
+NixOS uses the Home Manager modules under `nixos-cfg/home/programs`. The
+standalone `zsh` component provides the equivalent portable workflow
+for systems that are not managed by Nix.
+
 ```text
 Zsh
 ├── Starship                  prompt
@@ -11,7 +15,7 @@ Zsh
 └── zsh-syntax-highlighting   command-line highlighting
 ```
 
-Reload the configuration with:
+After installing `zsh`, reload the standalone configuration with:
 
 ```sh
 source ~/.config/zsh/.zshrc
@@ -71,16 +75,28 @@ stale bar overrides from the Noctalia Settings UI state.
 
 Profiles whose main bar is on the bottom or side include a top-center media
 island attached flush to the screen edge. Its 42 px geometry mirrors the normal
-bottom bar: concave screen-edge corners and rounded inner corners. The
-`noctalia-media-island` watcher reveals it for 1.5 seconds when playback
-starts or the track changes during playback, then hides the whole overlay.
+bottom bar: concave screen-edge corners and rounded inner corners. Native bar
+auto-hide lets it open from the top screen edge, while the
+`noctalia-media-island` watcher also reveals it for 1.5 seconds when playback
+starts or the track changes during playback. The watcher temporarily suspends
+native auto-hide for that interval, then hides the overlay and restores normal
+edge-triggered auto-hide.
 It includes artwork, track information, playback-aware controls, and a native
 PipeWire audio visualizer.
+Clicking the compact media pill briefly opens the expanded island by default;
+the Media Island plugin has an override for opening Noctalia's full Media panel
+instead. Clicking the native media content in the expanded island also opens
+that full panel attached directly below the island. The island uses Noctalia's
+maximum 3 px panel overlap to keep their shared seam closed. A Media Island
+plugin override can make this second click use Noctalia's default panel
+location instead.
 Its opacity follows the selected bar profile. Top-bar profiles keep media
 within the main bar instead. On bottom profiles, the persistent collapsed state
-is a compact media pill with a hover-scroll title and a live audio visualizer
-inside the main bar; only the short expanded state uses the attached top-edge
-surface.
+is a compact media pill whose title scrolls only during playback by default,
+plus a live audio visualizer inside the main bar. A plugin override can keep the
+title scrolling while paused; only the short expanded state uses the attached
+top-edge surface. The pill uses Noctalia's native pixel-based marquee; the
+plugin changes only its native scroll mode when playback state changes.
 
 The profile list is deliberately limited to `bottom`, `bottom-islands`, `top`,
 `top-islands`, and `side`. The side profile pairs its left bar with a visible

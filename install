@@ -12,6 +12,22 @@ INSTALL_MODE="copy"
 DRY_RUN=false
 
 
+run_home_manager() {
+  if ! command -v nixos-rebuild >/dev/null 2>&1; then
+    echo "home-manager mode requires nixos-rebuild (NixOS)." >&2
+    exit 1
+  fi
+
+  exec sudo nixos-rebuild switch --flake "$DOTFILES_DIR/nixos-cfg#juosterben" "$@"
+}
+
+
+if [[ "${1:-}" == "home-manager" ]]; then
+  shift
+  run_home_manager "$@"
+fi
+
+
 usage() {
   cat <<EOF
 Usage:
@@ -22,6 +38,7 @@ Usage:
 Commands:
   list        List components
   check       Check dependencies; 'all' checks every component
+  home-manager Apply the NixOS/Home Manager flake for this host
 
 Options:
   --link      Symlink files into HOME
@@ -30,6 +47,7 @@ Options:
 Examples:
   $0 check zsh tmux ghostty
   $0 all
+  $0 home-manager
   $0 niri noctalia
   $0 --link all
 EOF
@@ -166,7 +184,7 @@ check_component() {
       check_dependency zsh optional zoxide 'zoxide integration'
       check_dependency zsh optional starship 'Starship prompt'
       check_dependency zsh optional \
-        "file:/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh|file:/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh|file:$HOME/.nix-profile/share/zsh-autosuggestions/zsh-autosuggestions.zsh|file:/run/current-system/sw/share/zsh-autosuggestions/zsh-autosuggestions.zsh" \
+        "file:/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh|file:/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh|file:$HOME/.nix-profile/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh|file:$HOME/.nix-profile/share/zsh-autosuggestions/zsh-autosuggestions.zsh|file:/run/current-system/sw/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh|file:/run/current-system/sw/share/zsh-autosuggestions/zsh-autosuggestions.zsh" \
         'Zsh autosuggestions'
       check_dependency zsh optional \
         "file:/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh|file:/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh|file:$HOME/.nix-profile/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh|file:/run/current-system/sw/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \

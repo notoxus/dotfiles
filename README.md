@@ -19,11 +19,36 @@ installation set yet.
 
 ## Installation
 
+Clone the repository for either installation path:
+
 ```sh
 git clone https://github.com/notoxus/notoxus-dotfiles ~/dotfiles
 cd ~/dotfiles
+```
+
+### Portable/manual installation
+
+Use the component installer on systems that are not managed by the included
+NixOS/Home Manager flake:
+
+```sh
 chmod +x ./install
 ./install list
+```
+
+### NixOS with Home Manager
+
+Home Manager is integrated into the NixOS flake, so apply both layers together:
+
+```sh
+sudo nixos-rebuild switch --flake ./nixos-cfg#juosterben
+```
+
+Do not run the portable installer against files owned by Home Manager. The
+equivalent repository command is:
+
+```sh
+./install home-manager
 ```
 
 ## Requirements
@@ -31,7 +56,7 @@ chmod +x ./install
 | Component | Main requirements |
 |---|---|
 | `ghostty` | Ghostty and a Nerd Font |
-| `zsh` | Zsh; Starship, fzf, zoxide, and plugins are optional |
+| `zsh` | Standalone Zsh for non-Nix systems; Starship, fzf, zoxide, and plugins are optional |
 | `starship` | Starship |
 | `tmux` | tmux; Git and lm-sensors are optional |
 | `fastfetch` | Fastfetch and a Nerd Font |
@@ -213,22 +238,25 @@ Preview either mode without changing `$HOME`:
 | `tmux` | Terminal multiplexer |
 | `umbriel` | Experimental compositor |
 | `yazi` | Terminal file manager |
-| `zsh` | Shell configuration and the `keys` helper |
+| `zsh` | Standalone shell configuration and the `keys` helper for non-Nix systems |
 
 ## Configuration ownership
 
-The standalone component files are intentionally the portable source for
-non-NixOS systems such as Arch Linux. Home Manager installs packages and
-system integrations for the current NixOS host; it does not replace the
-cross-distribution dotfiles. The files under `nixos-cfg` contain the current
-machine's username, host name, hardware configuration, and package choices, so
-review them before applying the flake on another machine.
+The `zsh` component is the portable, manually installed shell setup for
+non-NixOS systems such as Arch Linux. On NixOS, Home Manager owns Zsh and its
+generated files under `~/.config/zsh`; use `./install home-manager` instead of
+installing the standalone component there.
+
+The remaining standalone component files are portable sources shared with
+non-NixOS systems. The files under `nixos-cfg` contain the current machine's
+username, host name, hardware configuration, and package choices, so review
+them before applying the flake on another machine.
 
 [Git and GitHub SSH setup guide](docs/git-ssh-setup.md)
 
 ## Doing workflow effectively
 
-After installing the `zsh` component:
+After installing the standalone `zsh` component:
 
 See [workflow notes](docs/workflow.md) for shell, tmux, clipboard, and compositor
 details.

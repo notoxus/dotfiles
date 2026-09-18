@@ -51,3 +51,17 @@ chmod +x ./install
 
 The checker reports missing commands or plugin files and prints their upstream
 documentation links. It never installs anything.
+
+For the standalone, non-Nix Zsh setup, use:
+
+```sh
+./install check zsh
+./install zsh
+```
+
+NixOS users should use the Home Manager configuration under `nixos-cfg`
+instead:
+
+```sh
+./install home-manager
+```

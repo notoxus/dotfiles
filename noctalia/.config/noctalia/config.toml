@@ -2,7 +2,7 @@
 
 [include]
 autoload = false
-files = ["bar-profile.toml"]
+files = ["bar-profile.toml", "fragments/media-island-action.toml", "fragments/media-pill-runtime.toml"]
 
 [shell]
 corner_radius_scale = 1.0
@@ -26,7 +26,7 @@ shadow = true
 launcher_placement = "floating"
 clipboard_placement = "floating"
 control_center_placement = "attached"
-open_near_click_control_center = true
+open_near_click_control_center = false
 wallpaper_placement = "floating"
 session_placement = "floating"
 launcher_position = "center"
@@ -155,19 +155,6 @@ capsule_foreground = "#FFFFFF"
 capsule_opacity = 1.0
 capsule_padding = 6
 capsule_radius = 80
-min_length = 120
-max_length = 150
-art_size = 18
-hide_artist = true
-title_scroll = "on_hover"
-show_progress = true
-
-# Collapsed media island used inside bottom bars. Its black capsule is supplied
-# by the owning bar's media-compact group so the visualizer shares one pill.
-[widget.media-compact]
-type = "media"
-hide_when_no_media = true
-capsule = false
 min_length = 120
 max_length = 150
 art_size = 18

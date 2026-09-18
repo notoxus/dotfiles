@@ -1,6 +1,6 @@
 --!nonstrict
--- Noctalia passes the active MPRIS playing state alongside native PipeWire
--- spectrum updates, so the glyph follows playback without polling D-Bus.
+-- The media-state service publishes the active MPRIS playback state so every
+-- island control stays in sync without its own polling loop.
 
 local playing = false
 
@@ -14,17 +14,13 @@ end
 
 function update()
     noctalia.setUpdateInterval(1000)
-    -- These settings are consumed by the native PluginWidget host before the
-    -- Luau entry runs; reading them here also keeps manifest lint explicit.
-    noctalia.getConfig("audio_spectrum")
-    noctalia.getConfig("audio_spectrum_bands")
     render()
 end
 
-function onAudioSpectrum(values, state)
-    local nextPlaying = string.match(state or "", ",([01])$") == "1"
+noctalia.state.watch("player", function(player)
+    local nextPlaying = type(player) == "table" and player.playing == true
     if nextPlaying ~= playing then
         playing = nextPlaying
         render()
     end
-end
+end)

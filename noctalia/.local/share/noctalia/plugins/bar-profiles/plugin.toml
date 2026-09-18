@@ -1,6 +1,6 @@
 id = "notoxus/bar-profiles"
 name = "Appearance"
-version = "0.2.0"
+version = "1.0.0"
 plugin_api = 26
 author = "notoxus"
 license = "MIT"

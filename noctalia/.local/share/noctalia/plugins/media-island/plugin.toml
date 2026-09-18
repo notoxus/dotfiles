@@ -1,13 +1,38 @@
 id = "notoxus/media-island"
 name = "Media Island"
-version = "0.1.0"
+version = "1.0.0"
 plugin_api = 26
 author = "notoxus"
 license = "MIT"
-dependencies = []
+dependencies = ["busctl"]
 tags = ["bar", "media", "mpris"]
 icon = "music"
-description = "Playback-aware controls for the temporary media island."
+description = "Playback-aware marquee and controls for the temporary media island."
+
+[[setting]]
+key = "scroll_while_paused"
+type = "bool"
+label_key = "settings.scroll-while-paused.label"
+description_key = "settings.scroll-while-paused.description"
+default = false
+
+[[setting]]
+key = "open_media_panel_on_click"
+type = "bool"
+label_key = "settings.open-media-panel.label"
+description_key = "settings.open-media-panel.description"
+default = false
+
+[[setting]]
+key = "panel_at_default_position"
+type = "bool"
+label_key = "settings.panel-default-position.label"
+description_key = "settings.panel-default-position.description"
+default = false
+
+[[service]]
+id = "media-state"
+entry = "service.luau"
 
 [[widget]]
 id = "playback-toggle"
@@ -15,19 +40,3 @@ entry = "bar.luau"
 
   [widget.actions]
   left = "media toggle"
-
-  [[widget.setting]]
-  key = "audio_spectrum"
-  type = "bool"
-  label_key = "settings.audio-spectrum.label"
-  default = true
-  advanced = true
-
-  [[widget.setting]]
-  key = "audio_spectrum_bands"
-  type = "int"
-  label_key = "settings.audio-spectrum-bands.label"
-  default = 8
-  min = 1
-  max = 128
-  advanced = true
