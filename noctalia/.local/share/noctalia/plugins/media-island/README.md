@@ -12,6 +12,9 @@ player selected by Noctalia. The compact artwork/title stays native so its
 marquee remains pixel-smooth; Play/Pause updates only the shared player state
 and never rebuilds the bar. The plugin also supplies a playback-aware control
 for the expanded island.
+## Requirement
+
+- `busctl`
 
 ## Plugin
 
