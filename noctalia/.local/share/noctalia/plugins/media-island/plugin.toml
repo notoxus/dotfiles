@@ -10,10 +10,10 @@ icon = "music"
 description = "Playback-aware marquee and controls for the temporary media island."
 
 [[setting]]
-key = "scroll_while_paused"
+key = "always_scroll_title"
 type = "bool"
-label_key = "settings.scroll-while-paused.label"
-description_key = "settings.scroll-while-paused.description"
+label_key = "settings.always-scroll-title.label"
+description_key = "settings.always-scroll-title.description"
 default = false
 
 [[setting]]

@@ -18,7 +18,6 @@ local queryPending = false
 local publishedKey = ""
 local currentArtUrl = ""
 local currentPlayer = nil
-local playerStateKnown = false
 local runtimeConfigPending = false
 local appliedRuntimeConfig = nil
 
@@ -28,10 +27,11 @@ local function syncRuntimeConfig()
     end
 
     local panelMode = noctalia.getConfig("panel_at_default_position") == true and "default" or "attached"
-    local scrollMode = ((currentPlayer ~= nil and currentPlayer.playing == true)
-            or noctalia.getConfig("scroll_while_paused") == true)
-        and "always"
-        or "on_hover"
+    -- Keep this independent from playback state. Changing title_scroll needs a
+    -- full Noctalia config reload, which would rebuild the bar on every
+    -- Play/Pause transition. Playback itself is published through plugin state
+    -- below and updates the control in place.
+    local scrollMode = noctalia.getConfig("always_scroll_title") == true and "always" or "on_hover"
     local pillClickMode = noctalia.getConfig("open_media_panel_on_click") == true and "panel" or "island"
     local desired = table.concat({ panelMode, scrollMode, pillClickMode }, "\31")
     if desired == appliedRuntimeConfig then
@@ -121,7 +121,6 @@ end
 
 local function handleQuery(result)
     queryPending = false
-    playerStateKnown = true
     if result.exitCode ~= 0 then
         currentPlayer = nil
         currentArtUrl = ""
@@ -168,11 +167,14 @@ end
 
 function update()
     noctalia.setUpdateInterval(500)
-    if playerStateKnown then
-        syncRuntimeConfig()
-    end
+    syncRuntimeConfig()
     if queryPending then
         return
     end
     queryPending = noctalia.runAsync(BUSCTL_ARGS, handleQuery)
+end
+
+function onConfigChanged()
+    appliedRuntimeConfig = nil
+    syncRuntimeConfig()
 end

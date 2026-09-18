@@ -1,5 +1,5 @@
 # Managed at runtime by the Media Island plugin. Native media rendering keeps
-# the title marquee pixel-smooth; the service changes its mode on Play/Pause.
+# the title marquee pixel-smooth without rebuilding the bar on Play/Pause.
 [widget.media-compact]
 type = "media"
 hide_when_no_media = true

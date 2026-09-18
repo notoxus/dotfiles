@@ -9,8 +9,9 @@ when playback starts or the current track changes. It temporarily suspends
 auto-hide, keeps the island visible for 1.5 seconds, then hides it and restores
 normal edge-triggered auto-hide. The plugin follows the same active MPRIS
 player selected by Noctalia. The compact artwork/title stays native so its
-marquee remains pixel-smooth; the plugin switches its scroll mode on
-Play/Pause and supplies a playback-aware control for the expanded island.
+marquee remains pixel-smooth; Play/Pause updates only the shared player state
+and never rebuilds the bar. The plugin also supplies a playback-aware control
+for the expanded island.
 
 ## Plugin
 
@@ -24,8 +25,9 @@ Play/Pause and supplies a playback-aware control for the expanded island.
 
 Three behavior overrides are exposed:
 
-- **Scroll while paused** keeps a long title moving when playback is paused.
-  It is off by default, so the title stands still while media is not playing.
+- **Always scroll long titles** keeps a long title moving continuously. It is
+  off by default, so the title scrolls only while the pill is hovered. Changing
+  this setting reloads the config once; Play/Pause never does.
 - **Open full media panel on click** opens Noctalia's native Media panel when
   the compact pill is clicked. It is off by default, so a click briefly reveals
   the expanded media island instead; clicking the native media content inside

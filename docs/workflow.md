@@ -92,11 +92,11 @@ plugin override can make this second click use Noctalia's default panel
 location instead.
 Its opacity follows the selected bar profile. Top-bar profiles keep media
 within the main bar instead. On bottom profiles, the persistent collapsed state
-is a compact media pill whose title scrolls only during playback by default,
-plus a live audio visualizer inside the main bar. A plugin override can keep the
-title scrolling while paused; only the short expanded state uses the attached
-top-edge surface. The pill uses Noctalia's native pixel-based marquee; the
-plugin changes only its native scroll mode when playback state changes.
+is a compact media pill plus a live audio visualizer inside the main bar. Long
+titles scroll on hover by default, and a plugin override can keep them moving
+continuously; only the short expanded state uses the attached top-edge surface.
+The pill uses Noctalia's native pixel-based marquee. Play/Pause updates its
+control in place and does not reload the bar.
 
 The profile list is deliberately limited to `bottom`, `bottom-islands`, `top`,
 `top-islands`, and `side`. The side profile pairs its left bar with a visible
