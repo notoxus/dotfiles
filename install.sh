@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
-# Manual-first dotfiles installer: check, copy, or symlink configuration.
 
 set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PRIMARY_COMPONENTS=(fastfetch ghostty niri noctalia nvim starship tmux yazi zsh)
-COMPONENTS=("${PRIMARY_COMPONENTS[@]}" btop umbriel)
+PRIMARY_COMPONENTS=(fastfetch ghostty niri noctalia nvim starship tmux zsh)
+COMPONENTS=("${PRIMARY_COMPONENTS[@]}" btop umbriel yazi)
 
 ACTION="copy"
 INSTALL_MODE="copy"
@@ -72,7 +71,7 @@ component_exists() {
 list_components() {
   printf 'Components:\n'
   printf '  %s\n' "${COMPONENTS[@]}"
-  printf "\nSpecific only:\n  btop\n  umbriel\n"
+  printf "\nSpecific only:\n  btop\n  umbriel\n  yazi\n"
 }
 
 

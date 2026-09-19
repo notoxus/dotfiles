@@ -45,8 +45,8 @@ the same Noctalia v5 command interface.
 Run the read-only checker for component-specific optional integrations:
 
 ```sh
-chmod +x ./install
-./install check <component>
+chmod +x ./install.sh
+./install.sh check <component>
 ```
 
 The checker reports missing commands or plugin files and prints their upstream
@@ -55,13 +55,13 @@ documentation links. It never installs anything.
 For the standalone, non-Nix Zsh setup, use:
 
 ```sh
-./install check zsh
-./install zsh
+./install.sh check zsh
+./install.sh zsh
 ```
 
 NixOS users should use the Home Manager configuration under `nixos-cfg`
 instead:
 
 ```sh
-./install home-manager
+./install.sh home-manager
 ```

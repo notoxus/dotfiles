@@ -32,8 +32,8 @@ Use the component installer on systems that are not managed by the included
 NixOS/Home Manager flake:
 
 ```sh
-chmod +x ./install
-./install list
+chmod +x ./install.sh
+./install.sh list
 ```
 
 ### NixOS with Home Manager
@@ -48,7 +48,7 @@ Do not run the portable installer against files owned by Home Manager. The
 equivalent repository command is:
 
 ```sh
-./install home-manager
+./install.sh home-manager
 ```
 
 ## Requirements
@@ -73,13 +73,13 @@ equivalent repository command is:
 Before getting started, inspect the default daily-driver components:
 
 ```sh
-./install check all
+./install.sh check all
 ```
 
 Specific:
 
 ```sh
-./install check <component 1> <component 2> <component ...>
+./install.sh check <component 1> <component 2> <component ...>
 ```
 See the [dependency installation guide](docs/requirements.md) for upstream
 installation links.
@@ -89,16 +89,16 @@ installation links.
 Install the default daily-driver components:
 
 ```sh
-./install all
+./install.sh all
 ```
 
-`btop` and the experimental `umbriel` configuration remain opt-in and can be
-deployed explicitly.
+`btop`, `yazi`, and the experimental `umbriel` configuration remain opt-in and
+can be deployed explicitly.
 
 Specific:
 
 ```sh
-./install <component 1> <component 2> <component ...>
+./install.sh <component 1> <component 2> <component ...>
 ```
 
 If an existing destination differs, it is moved to a
@@ -112,7 +112,7 @@ The `noctalia` component includes the local `notoxus/os-logo`,
 tracked configuration, so deploying the component is normally enough:
 
 ```sh
-./install noctalia
+./install.sh noctalia
 ```
 
 The configuration also uses the community `ashur-d/wallpaper-widget` plugin.
@@ -148,17 +148,18 @@ The tmux component declares `tmux-cpu`, `tmux-resurrect`, and
 component, start tmux, then press `Ctrl+B` followed by `I`:
 
 ```sh
-./install tmux
+./install.sh tmux
 tmux
 ```
 
 ### Terminal workflow
 
-The `fastfetch`, `nvim`, and `yazi` configurations are deployed by `all`.
-`btop` remains an opt-in component:
+The `fastfetch` and `nvim` configurations are deployed by `all`. `btop` and
+`yazi` remain opt-in components:
 
 ```sh
-./install btop
+./install.sh btop
+./install.sh yazi
 ```
 
 `Mod + E` opens Nautilus. Run `y` in Zsh to launch Yazi and continue in the
@@ -167,7 +168,7 @@ the current one.
 
 ### Optional command-line tools
 
-`./install check zsh` also reports the optional `eza`, `lazygit`, `bat`,
+`./install.sh check zsh` also reports the optional `eza`, `lazygit`, `bat`,
 `delta`, and `dust` utilities. Nothing is installed automatically. When `eza`
 is present, Zsh provides:
 
@@ -209,18 +210,18 @@ ghostty/.config/ghostty/config.ghostty
 ```
 
 ```sh
-./install --link all
+./install.sh --link all
 ```
 
 ```sh
-./install --link <component 1> <component 2> <component ...>
+./install.sh --link <component 1> <component 2> <component ...>
 ```
 
 Preview either mode without changing `$HOME`:
 
 ```sh
-./install --dry-run all
-./install --link --dry-run <component 1> <component 2> <component ...>
+./install.sh --dry-run all
+./install.sh --link --dry-run <component 1> <component 2> <component ...>
 ```
 
 ## Repository layout
@@ -244,7 +245,7 @@ Preview either mode without changing `$HOME`:
 
 The `zsh` component is the portable, manually installed shell setup for
 non-NixOS systems such as Arch Linux. On NixOS, Home Manager owns Zsh and its
-generated files under `~/.config/zsh`; use `./install home-manager` instead of
+generated files under `~/.config/zsh`; use `./install.sh home-manager` instead of
 installing the standalone component there.
 
 The remaining standalone component files are portable sources shared with

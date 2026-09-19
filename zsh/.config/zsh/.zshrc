@@ -63,20 +63,20 @@ if (( $+commands[zoxide] )); then
 fi
 
 
-
-# ── Yazi ──────────────────────────────────────────────────────────
-# Exit with q to continue in the directory selected in Yazi; Q keeps
-# the current directory unchanged.
-if (( $+commands[yazi] )); then
-  function y() {
-    local tmp cwd
-    tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-    command yazi "$@" --cwd-file="$tmp"
-    IFS= read -r -d '' cwd < "$tmp"
-    [[ "$cwd" != "$PWD" && -d "$cwd" ]] && builtin cd -- "$cwd"
-    command rm -f -- "$tmp"
-  }
-fi
+# If you would like to use yazi
+# # ── Yazi ──────────────────────────────────────────────────────────
+# # Exit with q to continue in the directory selected in Yazi; Q keeps
+# # the current directory unchanged.
+# if (( $+commands[yazi] )); then
+#   function y() {
+#     local tmp cwd
+#     tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+#     command yazi "$@" --cwd-file="$tmp"
+#     IFS= read -r -d '' cwd < "$tmp"
+#     [[ "$cwd" != "$PWD" && -d "$cwd" ]] && builtin cd -- "$cwd"
+#     command rm -f -- "$tmp"
+#   }
+# fi
 
 
 # ── Starship prompt ───────────────────────────────────────────────

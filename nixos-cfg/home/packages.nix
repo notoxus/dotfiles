@@ -6,7 +6,25 @@ let
 in
 {
   home.packages = with pkgs; [
+    # CLI / terminal
     tmux
+    neovim
+    fastfetch
+    eza
+    lazygit
+    bat
+    delta
+    dust
+    btop
+    ripgrep
+    gh
+    file
+    imagemagick
+
+    # Development
+    jdk21
+
+    # Desktop App
     nautilus
     codex
     rnote
@@ -15,10 +33,7 @@ in
     eclipses.eclipse-java
     obs-studio
     mpv
-    gh
-    file
-    imagemagick
     libreoffice
-    ripgrep
+    zotero
   ];
 }

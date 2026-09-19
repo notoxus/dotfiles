@@ -57,7 +57,10 @@
   # OR
   services.pipewire = {
      enable = true;
+     alsa.enable = true;
+     alsa.support32Bit = true;
      pulse.enable = true;
+     jack.enable = true; # For qpwgraph routing
   };
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
@@ -101,6 +104,10 @@
   };
   programs.zsh.enable = true;
   programs.firefox.enable = true;
+  programs.appimage = {
+     enable = true;
+     binfmt = true;
+  };
   hardware.amdgpu.initrd.enable = true;
   hardware.graphics.enable = true;
   zramSwap.enable = true;
@@ -110,20 +117,11 @@
      vim
      wget
      git
-     noctalia
-     neovim
-     fastfetch
-     eza
-     lazygit
-     bat
-     delta
-     dust
+     unzip
      gcc
      gnumake
      xwayland-satellite
      pciutils
-     btop
-     unzip
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
