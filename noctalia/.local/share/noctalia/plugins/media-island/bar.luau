@@ -12,15 +12,21 @@ local function render()
     })
 end
 
-function update()
-    noctalia.setUpdateInterval(1000)
-    render()
-end
-
-noctalia.state.watch("player", function(player)
+local function syncPlayer(player)
     local nextPlaying = type(player) == "table" and player.playing == true
     if nextPlaying ~= playing then
         playing = nextPlaying
         render()
     end
-end)
+end
+
+function update()
+    noctalia.setUpdateInterval(1000)
+    render()
+end
+
+-- A service may publish before this widget is created (notably after a bar
+-- reload). Subscribe first, then hydrate from the latest value so the control
+-- does not remain on the default Play glyph until the next MPRIS transition.
+noctalia.state.watch("player", syncPlayer)
+syncPlayer(noctalia.state.get("player"))

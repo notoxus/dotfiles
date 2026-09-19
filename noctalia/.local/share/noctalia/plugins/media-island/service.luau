@@ -167,7 +167,11 @@ end
 
 function update()
     noctalia.setUpdateInterval(500)
-    syncRuntimeConfig()
+    -- Plugin settings change only through onConfigChanged(). Avoid resolving
+    -- them on every MPRIS polling tick once the initial config was applied.
+    if appliedRuntimeConfig == nil then
+        syncRuntimeConfig()
+    end
     if queryPending then
         return
     end

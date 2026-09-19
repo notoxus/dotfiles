@@ -2,7 +2,7 @@
 
 let
   unstable =
-    inputs.nixpkgs-unstable.legacyPackages.${pkgs.system};
+    inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
   home.packages = with pkgs; [
@@ -14,5 +14,11 @@ in
     unstable.rustdesk-flutter
     eclipses.eclipse-java
     obs-studio
+    mpv
+    gh
+    file
+    imagemagick
+    libreoffice
+    ripgrep
   ];
 }
