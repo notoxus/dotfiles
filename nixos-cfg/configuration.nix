@@ -60,7 +60,7 @@
      alsa.enable = true;
      alsa.support32Bit = true;
      pulse.enable = true;
-     jack.enable = true; # For qpwgraph routing
+     jack.enable = true; # JACK compatibility
   };
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
@@ -122,6 +122,9 @@
      gnumake
      xwayland-satellite
      pciutils
+     cliphist
+     wl-clipboard
+     fuzzel
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

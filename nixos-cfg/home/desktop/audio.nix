@@ -3,6 +3,7 @@
 {
   home.packages = with pkgs; [
     easyeffects
+    ardour
   ];
 
   xdg.dataFile = {

@@ -1,8 +1,16 @@
 { pkgs, inputs, ... }:
 
 let
-  unstable =
-    inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+   system = pkgs.stdenv.hostPlatform.system;
+   unstable = import inputs.nixpkgs-unstable {
+    inherit system;
+
+    config.allowUnfreePredicate = pkg:
+      builtins.elem (pkgs.lib.getName pkg) [
+        "cisco-packet-tracer"
+        "CiscoPacketTracer_901_Ubuntu_64bit.deb"
+      ];
+  };  
 in
 {
   home.packages = with pkgs; [
@@ -30,10 +38,11 @@ in
     rnote
     gaphor
     unstable.rustdesk-flutter
-    eclipses.eclipse-java
     obs-studio
     mpv
+    ardour
     libreoffice
     zotero
+    unstable.cisco-packet-tracer_9
   ];
 }

@@ -6,6 +6,8 @@
     ./zoxide.nix
     ./starship.nix
     ./vscodium.nix
-    # ./eclipse.nix
+    # ./yazi.nix
+    ./eclipse.nix
+    # ./packettracer.nix
   ];
 }
