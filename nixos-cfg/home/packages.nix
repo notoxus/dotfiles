@@ -2,7 +2,7 @@
 
 let
    system = pkgs.stdenv.hostPlatform.system;
-   unstable = import inputs.nixpkgs-unstable {
+   unstable = import inputs.nixpkgs {
     inherit system;
 
     config.allowUnfreePredicate = pkg:

@@ -39,6 +39,22 @@
     },
     "nixpkgs": {
       "locked": {
+        "lastModified": 1789921291,
+        "narHash": "sha256-Ft/BRnIqw1MywFoXydKobjjWmDFgDdYtSpJliE8+yUw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "44a91898084f46797b5fac650c7e8c9ac38c43d4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-stable-firmware": {
+      "locked": {
         "lastModified": 1789038502,
         "narHash": "sha256-/z7jMI1qzmu1M+qdYZRyoHOZ/x8UMUHxj8f3lKuxzgs=",
         "owner": "NixOS",
@@ -50,22 +66,6 @@
         "owner": "NixOS",
         "repo": "nixpkgs",
         "rev": "d2f0551226ee44652aebf6217752cc78f7a47e84",
-        "type": "github"
-      }
-    },
-    "nixpkgs-unstable": {
-      "locked": {
-        "lastModified": 1789286504,
-        "narHash": "sha256-eiEK7cKZORNEvX0GeF3RtNEF/JXhgf2RqSp3230q13E=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "ef34387ddd751e1ab8857adf4676492d32eb24ec",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
         "type": "github"
       }
     },
@@ -114,7 +114,7 @@
         "easyeffects-presets": "easyeffects-presets",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-unstable": "nixpkgs-unstable",
+        "nixpkgs-stable-firmware": "nixpkgs-stable-firmware",
         "noctalia": "noctalia",
         "noctalia-greeter": "noctalia-greeter"
       }

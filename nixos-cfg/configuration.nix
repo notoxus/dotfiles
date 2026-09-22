@@ -5,6 +5,7 @@
     [ 
       ./hardware-configuration.nix
       ./modules/power.nix
+      ./modules/brother-dcp-t430w/module.nix
       inputs.noctalia.nixosModules.default
       inputs.noctalia-greeter.nixosModules.default
     ];
@@ -125,6 +126,8 @@
      cliphist
      wl-clipboard
      fuzzel
+     rpm
+     dpkg
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -153,6 +156,7 @@
   nixpkgs.config.allowUnfreePredicate = pkg:
   builtins.elem (lib.getName pkg) [
     "davinci-resolve"
+    "brother-dcp-t430w-driver"
   ];
   fonts.packages = with pkgs; [
      nerd-fonts.jetbrains-mono
