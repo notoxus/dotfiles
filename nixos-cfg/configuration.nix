@@ -97,7 +97,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.juo = {
       isNormalUser = true;
-      extraGroups = [ "networkmanager" "wheel" ];
+      extraGroups = [ "networkmanager" "wheel" "podman" ];
       shell = pkgs.zsh;
       packages = with pkgs; [
         # Cuz I used home.nix, so I dont need that block anyway
@@ -128,8 +128,14 @@
      fuzzel
      rpm
      dpkg
+     distrobox
+     podman
   ];
-
+  virtualisation.podman = {
+     enable = true;
+     dockerCompat = true; 
+     defaultNetwork.settings.dns_enabled = true;
+  };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

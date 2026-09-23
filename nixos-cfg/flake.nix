@@ -26,15 +26,14 @@
 
    outputs = inputs@{ nixpkgs, home-manager, nixpkgs-stable-firmware, ... }: {
       nixosConfigurations.juosterben = nixpkgs.lib.nixosSystem {
-         system = "x86_64-linux";
-
          specialArgs = {
             inherit inputs;
          };
 
          modules = [
+            { nixpkgs.hostPlatform = "x86_64-linux"; }
             ./configuration.nix
-            ({ config, ... }: {
+            ({ pkgs, config, ... }: {
                nixpkgs.overlays = [
                   (final: prev: {
                      linux-firmware = 

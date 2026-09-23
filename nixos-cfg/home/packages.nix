@@ -31,6 +31,7 @@ in
 
     # Development
     jdk21
+    nodejs
 
     # Desktop App
     nautilus
