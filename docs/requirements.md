@@ -35,13 +35,6 @@ plugin functionality is wanted.
 The tracked Niri configuration launches Noctalia directly and uses its v5
 `noctalia msg` command interface.
 
-## Umbriel
-
-- [Umbriel documentation](https://docs.noctalia.dev/umbriel/)
-
-Umbriel support is experimental in this repository and its keybindings target
-the same Noctalia v5 command interface.
-
 Run the read-only checker for component-specific optional integrations:
 
 ```sh
@@ -57,11 +50,4 @@ For the standalone, non-Nix Zsh setup, use:
 ```sh
 ./install.sh check zsh
 ./install.sh zsh
-```
-
-NixOS users should use the Home Manager configuration under `nixos-cfg`
-instead:
-
-```sh
-./install.sh home-manager
 ```

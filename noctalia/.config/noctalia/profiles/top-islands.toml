@@ -72,4 +72,3 @@ show_dots = true
 show_instance_count = true
 launcher_position = "end"
 launcher_icon = "grid-dots"
-pinned = ["nautilus"]

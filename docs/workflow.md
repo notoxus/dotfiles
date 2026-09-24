@@ -54,7 +54,7 @@ tmux source-file ~/.config/tmux/tmux.conf
 
 ## Noctalia v5
 
-Niri and Umbriel both launch the native Noctalia v5 executable and use
+Niri launches the native Noctalia v5 executable and use
 `noctalia msg` for shell controls. After deploying the configuration, validate
 it with:
 

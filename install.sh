@@ -4,28 +4,16 @@ set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PRIMARY_COMPONENTS=(fastfetch ghostty niri noctalia nvim starship tmux zsh)
-COMPONENTS=("${PRIMARY_COMPONENTS[@]}" btop umbriel yazi)
+COMPONENTS=("${PRIMARY_COMPONENTS[@]}" btop yazi)
 
 ACTION="copy"
 INSTALL_MODE="copy"
 DRY_RUN=false
 
-
-run_home_manager() {
-  if ! command -v nixos-rebuild >/dev/null 2>&1; then
-    echo "home-manager mode requires nixos-rebuild (NixOS)." >&2
-    exit 1
-  fi
-
-  exec sudo nixos-rebuild switch --flake "$DOTFILES_DIR/nixos-cfg#juosterben" "$@"
-}
-
-
 if [[ "${1:-}" == "home-manager" ]]; then
   shift
   run_home_manager "$@"
 fi
-
 
 usage() {
   cat <<EOF
@@ -37,7 +25,6 @@ Usage:
 Commands:
   list        List components
   check       Check dependencies; 'all' checks every component
-  home-manager Apply the NixOS/Home Manager flake for this host
 
 Options:
   --link      Symlink files into HOME
@@ -46,7 +33,6 @@ Options:
 Examples:
   $0 check zsh tmux ghostty
   $0 all
-  $0 home-manager
   $0 niri noctalia
   $0 --link all
 EOF
@@ -71,7 +57,7 @@ component_exists() {
 list_components() {
   printf 'Components:\n'
   printf '  %s\n' "${COMPONENTS[@]}"
-  printf "\nSpecific only:\n  btop\n  umbriel\n  yazi\n"
+  printf "\nSpecific only:\n  btop\n  yazi\n"
 }
 
 
@@ -172,10 +158,6 @@ check_component() {
     yazi)
       check_dependency yazi required yazi Yazi
       verify_manually yazi optional 'Nerd Font for file icons'
-      ;;
-    umbriel)
-      check_dependency umbriel required umbriel Umbriel
-      check_dependency umbriel required noctalia 'Noctalia v5 CLI'
       ;;
     zsh)
       check_dependency zsh required zsh Zsh

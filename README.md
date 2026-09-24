@@ -5,17 +5,11 @@ setups.
 
 | Area | Current setup |
 |---|---|
-| Distribution | NixOS and Arch Linux |
-| Compositor | Niri (primary), Umbriel (experimental) |
+| Distribution | Arch Linux |
+| Compositor | Niri (primary) |
 | Desktop shell | Noctalia v5 |
 | Shell | Zsh, Starship, zoxide, and fzf |
 | Terminal | Ghostty and tmux |
-
-### Why Umbriel?
-
-It shares the Noctalia ecosystem with Niri, and I also think it looks pretty
-good. Umbriel support remains experimental, so it is not part of the default
-installation set yet.
 
 ## Installation
 
@@ -36,21 +30,6 @@ chmod +x ./install.sh
 ./install.sh list
 ```
 
-### NixOS with Home Manager
-
-Home Manager is integrated into the NixOS flake, so apply both layers together:
-
-```sh
-sudo nixos-rebuild switch --flake ./nixos-cfg#juosterben
-```
-
-Do not run the portable installer against files owned by Home Manager. The
-equivalent repository command is:
-
-```sh
-./install.sh home-manager
-```
-
 ## Requirements
 
 | Component | Main requirements |
@@ -65,8 +44,6 @@ equivalent repository command is:
 | `btop` | btop |
 | `niri` | Niri and Noctalia v5 |
 | `noctalia` | Noctalia v5 |
-| `umbriel` | Umbriel and Noctalia v5 |
-
 
 ### Check dependencies
 
@@ -92,7 +69,7 @@ Install the default daily-driver components:
 ./install.sh all
 ```
 
-`btop`, `yazi`, and the experimental `umbriel` configuration remain opt-in and
+`btop`, `yazi` remain opt-in and
 can be deployed explicitly.
 
 Specific:
@@ -186,15 +163,9 @@ sudo pacman -Syu eza lazygit bat git-delta dust
 
 ### Desktop applications
 
-The NixOS Home Manager package list already includes OBS Studio, Rnote, Gaphor,
-RustDesk, and Eclipse. Add optional applications such as LibreOffice or Zotero
-to [`nixos-cfg/home/packages.nix`](nixos-cfg/home/packages.nix) when wanted.
-
-BentoPDF handles PDFs, while Fcitx5 Lotus (Nguyen Ky) provides Vietnamese
-input:
+BentoPDF handles PDFs
 
 - [BentoPDF](https://github.com/alam00000/bentopdf)
-- [fcitx5-lotus](https://github.com/LotusInputMethod/fcitx5-lotus)
 
 ### Symlink files
 
@@ -232,26 +203,14 @@ Preview either mode without changing `$HOME`:
 | `fastfetch` | Terminal system snapshot |
 | `ghostty` | Primary terminal |
 | `niri` | Primary compositor |
-| `nixos-cfg` | Host-specific NixOS and Home Manager configuration |
 | `nvim` | Neovim configuration |
 | `noctalia` | Shell and bar for Niri and Umbriel |
 | `starship` | Shell prompt |
 | `tmux` | Terminal multiplexer |
-| `umbriel` | Experimental compositor |
 | `yazi` | Terminal file manager |
 | `zsh` | Standalone shell configuration and the `keys` helper for non-Nix systems |
 
-## Configuration ownership
-
-The `zsh` component is the portable, manually installed shell setup for
-non-NixOS systems such as Arch Linux. On NixOS, Home Manager owns Zsh and its
-generated files under `~/.config/zsh`; use `./install.sh home-manager` instead of
-installing the standalone component there.
-
-The remaining standalone component files are portable sources shared with
-non-NixOS systems. The files under `nixos-cfg` contain the current machine's
-username, host name, hardware configuration, and package choices, so review
-them before applying the flake on another machine.
+## Git SSH setup guide
 
 [Git and GitHub SSH setup guide](docs/git-ssh-setup.md)
 

@@ -13,7 +13,7 @@
         default-floating-position x=24 y=24 relative-to="bottom-right"
     }
 
-     // if you use steam you will probably like these
+    // if you use steam you will probably like these
     window-rule {
         match app-id="steam"
         exclude title=r#"^[Ss]team$"#

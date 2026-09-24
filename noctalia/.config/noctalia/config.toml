@@ -221,7 +221,7 @@ type = "spacer"
 length = 24
 
 [widget.taskbar]
-pinned = []
+pinned = ["thunar"]
 group_by_workspace = false
 show_all_outputs = false
 only_active_workspace = false
