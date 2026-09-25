@@ -5,9 +5,9 @@ setups.
 
 | Area | Current setup |
 |---|---|
-| Distribution | Arch Linux |
+| Distribution | Arch Linux or NixOS|
 | Compositor | Niri (primary) |
-| Desktop shell | Noctalia v5 |
+| Desktop shell | Noctalia v5 (v5.1.0) |
 | Shell | Zsh, Starship, zoxide, and fzf |
 | Terminal | Ghostty and tmux |
 
@@ -22,14 +22,11 @@ cd ~/dotfiles
 
 ### Portable/manual installation
 
-Use the component installer on systems that are not managed by the included
-NixOS/Home Manager flake:
-
 ```sh
 chmod +x ./install.sh
 ./install.sh list
 ```
-
+- And if you use NixOS, let redirect to [my nix setup](https://github.com/notoxus/nix) 
 ## Requirements
 
 | Component | Main requirements |
