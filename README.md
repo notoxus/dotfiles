@@ -16,7 +16,7 @@ setups.
 Clone the repository for either installation path:
 
 ```sh
-git clone https://github.com/notoxus/notoxus-dotfiles ~/dotfiles
+git clone https://github.com/notoxus/dotfiles ~/dotfiles
 cd ~/dotfiles
 ```
 
