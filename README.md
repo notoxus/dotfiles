@@ -5,7 +5,7 @@ setups.
 
 | Area | Current setup |
 |---|---|
-| Distribution | Arch Linux or NixOS|
+| Distribution | Arch Linux or NixOS (present)|
 | Compositor | Niri (primary) |
 | Desktop shell | Noctalia v5 (v5.1.0) |
 | Shell | Zsh, Starship, zoxide, and fzf |
@@ -136,7 +136,7 @@ The `fastfetch` and `nvim` configurations are deployed by `all`. `btop` and
 ./install.sh yazi
 ```
 
-`Mod + E` opens Nautilus. Run `y` in Zsh to launch Yazi and continue in the
+`Mod + E` opens Thunar. Run `y` in Zsh to launch Yazi and continue in the
 directory selected there; quit Yazi with `q` to change directory or `Q` to keep
 the current one.
 

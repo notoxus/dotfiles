@@ -2,24 +2,7 @@
 
 ## Shell
 
-NixOS uses the Home Manager modules under `nixos-cfg/home/programs`. The
-standalone `zsh` component provides the equivalent portable workflow
-for systems that are not managed by Nix.
-
-```text
-Zsh
-├── Starship                  prompt
-├── zoxide                    directory jumping (`z`, `zi`)
-├── fzf                       history, file, and directory search
-├── zsh-autosuggestions       history and context-aware completion
-└── zsh-syntax-highlighting   command-line highlighting
-```
-
-After installing `zsh`, reload the standalone configuration with:
-
-```sh
-source ~/.config/zsh/.zshrc
-```
+NixOS uses the Nix Flakes and Home Manager modules under `[My nix config](https://github.com/notoxus/nix)`.
 
 ## Shortcut discovery
 
@@ -51,6 +34,40 @@ Install TPM plugins with `Ctrl+B`, then `I`; update them with `Ctrl+B`, then
 ```sh
 tmux source-file ~/.config/tmux/tmux.conf
 ```
+## tmux status bar troubleshooting
+
+If the right side of the status bar shows only icons, or `--` for the
+temperature, a dependency is missing. This is common on a fresh install.
+
+| Symptom | Cause | Fix |
+|---|---|---|
+| CPU and RAM show icons but no numbers | The `tmux-cpu` plugin isn't installed. Cloning TPM alone doesn't install plugins. | Inside tmux press `Ctrl+B`, then `Shift+I`. |
+| Temperature shows `--` | The `sensors` command is missing. | Install lm-sensors (see below), then run `sensors` once to confirm. |
+| `Prefix + I` does nothing | TPM isn't in the right place. | Check that `~/.config/tmux/plugins/tpm/tpm` exists. |
+
+Check what is installed:
+
+```sh
+ls ~/.config/tmux/plugins    # expect: tpm tmux-cpu tmux-resurrect tmux-continuum
+command -v sensors
+```
+
+If `Prefix + I` fails, install the plugins from a shell inside tmux:
+
+```sh
+~/.config/tmux/plugins/tpm/bin/install_plugins
+tmux source-file ~/.config/tmux/tmux.conf
+```
+
+### Installing lm-sensors
+
+The package name and the command differ: the command is `sensors`.
+
+- Arch Linux: `sudo pacman -S lm_sensors`
+- NixOS: add `lm_sensors` to `home.packages` and rebuild.
+
+On AMD CPUs, `sensors` should print a `Tctl` line, which `cpu-temp.sh` reads.
+Intel CPUs report `Package id 0` instead.
 
 ## Noctalia v5
 

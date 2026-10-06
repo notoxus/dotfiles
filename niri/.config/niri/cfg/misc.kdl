@@ -21,3 +21,12 @@
     hotkey-overlay {
        skip-at-startup
     }
+    // Auto lock screen session when lid off
+    switch-events {
+        lid-close {
+            spawn "sh" "-c" "loginctl lock-session; sleep 1; niri msg action power-off-monitors"
+        }
+        lid-open {
+            spawn "niri" "msg" "action" "power-on-monitors"
+        }
+    }

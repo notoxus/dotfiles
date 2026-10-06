@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# display-mode — Win+P style output switcher for niri
+# deps: niri, fuzzel, jq, wl-mirror
+set -euo pipefail
+
+internal="eDP-1"   # laptop panel
+
+external="$(niri msg --json outputs | jq -r --arg i "$internal" 'keys[] | select(. != $i)' | head -n1)"
+if [[ -z "$external" ]]; then
+  echo "No external display connected." >&2
+  exit 0
+fi
+
+choice="$(printf '%s\n' 'PC screen only' 'Duplicate' 'Extend' 'Second screen only' \
+  | fuzzel --dmenu -p 'Display: ')" || exit 0
+
+pkill -x wl-mirror 2>/dev/null || true
+
+case "$choice" in
+  'PC screen only')
+    niri msg output "$internal" on
+    niri msg output "$external" off ;;
+  'Second screen only')
+    niri msg output "$external" on
+    niri msg output "$internal" off ;;
+  'Extend')
+    niri msg output "$internal" on
+    niri msg output "$external" on ;;
+  'Duplicate')
+    niri msg output "$internal" on
+    niri msg output "$external" on
+    wl-mirror --fullscreen --fullscreen-output "$external" "$internal" & ;;
+esac

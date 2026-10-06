@@ -10,11 +10,6 @@ ACTION="copy"
 INSTALL_MODE="copy"
 DRY_RUN=false
 
-if [[ "${1:-}" == "home-manager" ]]; then
-  shift
-  run_home_manager "$@"
-fi
-
 usage() {
   cat <<EOF
 Usage:
@@ -48,6 +43,10 @@ contains() {
   return 1
 }
 
+is_seed_once() {
+  local list="$DOTFILES_DIR/$1/.seed-once"
+  [[ -f "$list" ]] && grep -qxF -- "$2" "$list"
+}
 
 component_exists() {
   contains "$1" "${COMPONENTS[@]}"
@@ -134,6 +133,9 @@ check_component() {
     niri)
       check_dependency niri required niri Niri
       check_dependency niri required noctalia 'Noctalia v5 CLI'
+      check_dependency niri optional thunar 'File manager (Mod+E)'
+      check_dependency niri optional wl-mirror 'Duplicate display mode (Mod+P)'
+      check_dependency niri optional jq 'Display mode script'
       ;;
     noctalia)
       check_dependency noctalia required noctalia 'Noctalia v5 CLI'
@@ -151,9 +153,9 @@ check_component() {
       ;;
     tmux)
       check_dependency tmux required tmux tmux
-      check_dependency tmux optional sensors 'CPU temperature'
+      check_dependency tmux optional sensors "lm-sensors (the command is 'sensors')"
       check_dependency tmux optional git 'Git for TPM'
-      verify_manually tmux optional 'TPM plugins (Prefix + I)'
+      check_dependency tmux optional "file:$HOME/.config/tmux/plugins/tpm/tpm" 'TPM (then Prefix + I)'
       ;;
     yazi)
       check_dependency yazi required yazi Yazi
@@ -261,8 +263,16 @@ install_component() {
   printf 'Installing %s (%s):\n' "$name" "$INSTALL_MODE"
   while IFS= read -r -d '' file; do
     rel="${file#"$component_dir"/}"
+    if is_seed_once "$name" "$rel"; then
+      if [[ -e "$HOME/$rel" ]]; then
+        printf '  [keep]    %s\n' "$HOME/$rel"
+        continue
+      fi
+      ( INSTALL_MODE=copy; deploy_file "$file" "$HOME/$rel" )
+      continue
+    fi
     deploy_file "$file" "$HOME/$rel"
-  done < <(find "$component_dir" -type f -print0 | sort -z)
+  done < <(find "$component_dir" -type f ! -name .seed-once -print0 | sort -z)
 }
 
 
