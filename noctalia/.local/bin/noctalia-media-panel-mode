@@ -8,10 +8,13 @@ set -euo pipefail
 readonly panel_mode="${1:-attached}"
 readonly scroll_mode="${2:-on_hover}"
 readonly pill_click_mode="${3:-island}"
+readonly auto_hide_mode="${4:-off}"
 readonly config_home="${XDG_CONFIG_HOME:-${HOME}/.config}"
 readonly fragment_dir="${config_home}/noctalia/fragments"
 readonly panel_target="${fragment_dir}/media-island-action.toml"
 readonly pill_target="${fragment_dir}/media-pill-runtime.toml"
+readonly auto_hide_state="${XDG_RUNTIME_DIR:-/tmp}/noctalia-media-island-${UID}.auto-hide"
+readonly visibility_token="${XDG_RUNTIME_DIR:-/tmp}/noctalia-media-island-${UID}.token"
 
 case "$panel_mode" in
   attached)
@@ -49,6 +52,14 @@ case "$pill_click_mode" in
     ;;
 esac
 
+case "$auto_hide_mode" in
+  on | off) ;;
+  *)
+    printf 'unknown island bar auto-hide mode: %s\n' "$auto_hide_mode" >&2
+    exit 2
+    ;;
+esac
+
 mkdir -p "$fragment_dir"
 panel_temporary="$(mktemp "${fragment_dir}/.media-island-action.XXXXXX")"
 pill_temporary="$(mktemp "${fragment_dir}/.media-pill-runtime.XXXXXX")"
@@ -64,7 +75,6 @@ printf '%s\n' \
   '[widget.media-compact]' \
   'type = "media"' \
   'hide_when_no_media = true' \
-  'capsule = false' \
   'min_length = 120' \
   'max_length = 150' \
   'art_size = 18' \
@@ -97,4 +107,14 @@ fi
 trap - EXIT
 if [[ "$changed" == 1 && "${NOCTALIA_MEDIA_CONFIG_NO_RELOAD:-0}" != 1 ]]; then
   noctalia msg config-reload >/dev/null 2>&1 || true
+fi
+
+printf '%s\n' "$auto_hide_mode" >"$auto_hide_state"
+if [[ -s "$visibility_token" ]]; then
+  # Keep a live 1.5-second notification visible; the watcher applies the new
+  # preference as soon as that notification closes.
+  noctalia msg bar-auto-hide-set off media-island >/dev/null 2>&1 || true
+else
+  noctalia msg bar-auto-hide-set "$auto_hide_mode" media-island >/dev/null 2>&1 || true
+  noctalia msg bar-hide media-island >/dev/null 2>&1 || true
 fi

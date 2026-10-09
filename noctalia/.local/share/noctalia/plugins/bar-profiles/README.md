@@ -7,9 +7,10 @@ It provides:
 
 - an Appearance bar widget
 - an optional Control Center shortcut
-- a panel for selecting theme, dark/light/automatic mode, and bar layout
-- support for the tracked `bottom`, `bottom-islands`, `top`, `top-islands`, and
-  `side` profiles
+- a panel for selecting a built-in palette or colors generated from the
+  current wallpaper, dark/light/automatic mode, window corners, bar blur,
+  and bar layout
+- support for the tracked `bottom`, `top`, and `side` profiles
 
 ## Plugin
 
@@ -22,7 +23,14 @@ It provides:
 
 The selected profile is written to
 `~/.config/noctalia/bar-profile.toml`. Theme and mode changes are applied
-through Noctalia's command interface when **Apply** is pressed.
+through Noctalia's command interface when **Apply** is pressed. The wallpaper
+palette uses Noctalia's `m3-content` generator and follows later wallpaper
+changes automatically. The existing built-in palettes remain available, and
+the tracked default palette is unchanged.
+
+The panel's **Window corners** option applies either square or 20 px rounded
+corners to Niri windows independently of the selected bar profile. **Bar blur**
+enables or disables Niri blur for the Noctalia bar surfaces in any profile.
 
 ## Installation
 

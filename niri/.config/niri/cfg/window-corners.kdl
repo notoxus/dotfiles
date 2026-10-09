@@ -1,0 +1,5 @@
+// Managed by notoxus/bar-profiles Appearance controls.
+// appearance-island-blur=off
+window-rule {
+    geometry-corner-radius 0
+}

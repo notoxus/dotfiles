@@ -1,5 +1,4 @@
     window-rule {
-        geometry-corner-radius 14
         clip-to-geometry true
     }
 
@@ -24,6 +23,14 @@
        match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
        default-floating-position x=10 y=10 relative-to="bottom-right"
        open-focused false
+    }
+
+    // Blur wallpaper and windows behind Ghostty through its transparent background.
+    window-rule {
+       match app-id=r#"^com\.mitchellh\.ghostty$"#
+       background-effect {
+           blur true
+       }
     }
 
     window-rule {

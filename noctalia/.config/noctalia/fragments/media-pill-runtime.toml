@@ -3,7 +3,6 @@
 [widget.media-compact]
 type = "media"
 hide_when_no_media = true
-capsule = false
 min_length = 120
 max_length = 150
 art_size = 18

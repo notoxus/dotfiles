@@ -1,5 +1,5 @@
     layout {
-        gaps 10
+        gaps 1
         center-focused-column "on-overflow"
         always-center-single-column
 

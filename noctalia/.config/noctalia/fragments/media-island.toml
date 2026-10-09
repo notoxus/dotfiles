@@ -22,7 +22,7 @@ font_scale = 1.0
 font_family = "JetBrainsMono Nerd Font"
 font_weight = 600
 shadow = true
-auto_hide = true
+auto_hide = false
 reserve_space = false
 layer = "overlay"
 # Maximum seam overlap supported by Noctalia for attached panels.

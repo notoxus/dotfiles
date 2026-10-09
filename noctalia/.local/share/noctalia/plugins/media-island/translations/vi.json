@@ -4,5 +4,7 @@
   "settings.open-media-panel.label": "Mở bảng Media đầy đủ khi nhấn",
   "settings.open-media-panel.description": "Mở thẳng bảng Media của Noctalia từ pill dưới bar. Mặc định, pill hiện island mở rộng trước; nhấn nội dung media trong island mới mở bảng Media.",
   "settings.panel-default-position.label": "Dùng vị trí panel mặc định",
-  "settings.panel-default-position.description": "Mở bảng Media tại vị trí mặc định của Noctalia thay vì gắn ngay bên dưới island mở rộng."
+  "settings.panel-default-position.description": "Mở bảng Media tại vị trí mặc định của Noctalia thay vì gắn ngay bên dưới island mở rộng.",
+  "settings.auto-hide.label": "Tự ẩn thanh Island",
+  "settings.auto-hide.description": "Bật để thanh Island tự ẩn giữa các thông báo và có thể hiện lại khi rê lên cạnh trên. Tắt để thanh chỉ hiện trong thông báo phát hoặc đổi bài."
 }

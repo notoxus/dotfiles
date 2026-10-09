@@ -101,13 +101,15 @@ The icon-only Appearance widget is shown directly on every tracked bar. Click
 it to choose a built-in theme, dark/light/automatic mode, and bar layout, then
 apply all three together. You can also add its shortcut under Settings →
 Control Center → Shortcuts, replacing one of the six existing shortcuts. The
-five tracked profiles are `bottom`, `bottom-islands`, `top`, `top-islands`, and
-`side`. Layouts without a top bar show active media in a top-center island
-attached flush to the screen edge for 1.5 seconds after playback changes, with
-playback-aware controls and an audio visualizer. The watcher then hides the
-expanded overlay while the compact media pill remains in the main bar. The side
-layout adds a visible macOS-style dock on the right, while top islands uses the
-same dock auto-hidden.
+three tracked profiles are `bottom`, `top`, and `side`. The Appearance panel
+also has a Bar blur toggle. The top and side profiles place a compact media
+capsule immediately before the system tray. Layouts without a top bar show
+active media in a top-center island attached flush to the screen edge. The
+watcher reveals it for 1.5 seconds when playback starts, pauses, or the track
+changes while playing. Its **Auto-hide the island bar** setting controls
+Noctalia's native auto-hide behavior between notifications. It has
+playback-aware controls and an audio visualizer. The side
+layout adds a visible macOS-style dock on the right.
 
 The OS logo replaces the separate launcher icon on every profile. Hover it for
 the OS name and shortcut hints; left-click it to open the Noctalia launcher.

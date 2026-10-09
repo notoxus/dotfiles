@@ -92,12 +92,10 @@ stale bar overrides from the Noctalia Settings UI state.
 
 Profiles whose main bar is on the bottom or side include a top-center media
 island attached flush to the screen edge. Its 42 px geometry mirrors the normal
-bottom bar: concave screen-edge corners and rounded inner corners. Native bar
-auto-hide lets it open from the top screen edge, while the
-`noctalia-media-island` watcher also reveals it for 1.5 seconds when playback
-starts or the track changes during playback. The watcher temporarily suspends
-native auto-hide for that interval, then hides the overlay and restores normal
-edge-triggered auto-hide.
+bottom bar: concave screen-edge corners and rounded inner corners. The
+`noctalia-media-island` watcher reveals it for 1.5 seconds when playback starts,
+pauses, or the track changes during playback. The **Auto-hide the island bar**
+plugin setting controls Noctalia's native edge auto-hide between notifications.
 It includes artwork, track information, playback-aware controls, and a native
 PipeWire audio visualizer.
 Clicking the compact media pill briefly opens the expanded island by default;
@@ -115,10 +113,10 @@ continuously; only the short expanded state uses the attached top-edge surface.
 The pill uses Noctalia's native pixel-based marquee. Play/Pause updates its
 control in place and does not reload the bar.
 
-The profile list is deliberately limited to `bottom`, `bottom-islands`, `top`,
-`top-islands`, and `side`. The side profile pairs its left bar with a visible
-right-side app dock. Top islands uses the same right-side dock with pointer
-auto-hide enabled.
+The profile list is deliberately limited to `bottom`, `top`, and `side`. The
+Appearance panel's Bar blur toggle controls compositor blur independently of
+the selected profile. The side profile pairs its left bar with a visible
+right-side app dock.
 
 The OS logo is also the launcher button. Hover it for the OS name and shortcut
 hints, or left-click it to open the launcher (`Mod+Ctrl+Enter`).

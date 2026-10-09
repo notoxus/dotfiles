@@ -3,12 +3,11 @@
 A playback-aware control widget used by this dotfiles repository's temporary
 media island.
 
-The island uses Noctalia's normal bar auto-hide behavior at the top screen
-edge. The external `noctalia-media-island` watcher additionally reveals it
-when playback starts or the current track changes. It temporarily suspends
-auto-hide, keeps the island visible for 1.5 seconds, then hides it and restores
-normal edge-triggered auto-hide. The plugin follows the same active MPRIS
-player selected by Noctalia. The compact artwork/title stays native so its
+The external `noctalia-media-island` watcher reveals the island when playback
+starts, pauses, or the current track changes during playback. It keeps the
+island visible for 1.5 seconds, then hides it. The **Auto-hide the island bar**
+setting controls Noctalia's native auto-hide behavior between notifications.
+The plugin follows the same active MPRIS player selected by Noctalia. The compact artwork/title stays native so its
 marquee remains pixel-smooth; Play/Pause updates only the shared player state
 and never rebuilds the bar. The plugin also supplies a playback-aware control
 for the expanded island.

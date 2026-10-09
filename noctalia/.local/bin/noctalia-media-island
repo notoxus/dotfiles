@@ -6,12 +6,32 @@ set -uo pipefail
 readonly island_name="media-island"
 readonly visible_seconds="1.5"
 readonly visibility_token_file="${XDG_RUNTIME_DIR:-/tmp}/noctalia-media-island-${UID}.token"
+readonly auto_hide_state="${XDG_RUNTIME_DIR:-/tmp}/noctalia-media-island-${UID}.auto-hide"
 hide_pid=""
 visibility_token=""
+monitor_pid=""
+monitor_fd=""
+playing=0
+
+configured_auto_hide() {
+  local mode="off"
+  if [[ -r "$auto_hide_state" ]]; then
+    IFS= read -r mode <"$auto_hide_state" || true
+  fi
+  [[ "$mode" == "on" ]] && printf 'on' || printf 'off'
+}
+
+restore_auto_hide() {
+  if [[ "$(configured_auto_hide)" == "on" ]]; then
+    noctalia msg bar-auto-hide-set on "$island_name" >/dev/null 2>&1 || true
+  fi
+}
 
 hide_island() {
+  # Turning auto-hide off after bar-hide can bring the surface back. Off is
+  # already active during the notification; leave it alone after closing.
+  restore_auto_hide
   noctalia msg bar-hide "$island_name" >/dev/null 2>&1 || true
-  noctalia msg bar-auto-hide-set on "$island_name" >/dev/null 2>&1 || true
 }
 
 claim_visibility() {
@@ -42,15 +62,12 @@ cancel_pending_hide() {
 show_briefly() {
   cancel_pending_hide
   claim_visibility
-  # Native auto-hide immediately retracts a bar shown away from the screen
-  # edge. Suspend it while the media notification is visible, then
-  # hide_island restores normal edge-triggered behavior.
   if ! noctalia msg bar-auto-hide-set off "$island_name" >/dev/null 2>&1; then
     clear_visibility
     return 0
   fi
   if ! noctalia msg bar-show "$island_name" >/dev/null 2>&1; then
-    noctalia msg bar-auto-hide-set on "$island_name" >/dev/null 2>&1 || true
+    restore_auto_hide
     clear_visibility
     return 0
   fi
@@ -70,6 +87,12 @@ cleanup() {
     hide_island
     clear_visibility
   fi
+  if [[ -n "$monitor_pid" ]] && kill -0 "$monitor_pid" 2>/dev/null; then
+    kill "$monitor_pid" 2>/dev/null || true
+  fi
+  if [[ -n "$monitor_pid" ]]; then
+    wait "$monitor_pid" 2>/dev/null || true
+  fi
 }
 
 # The pill invokes this one-shot mode. It shares a visibility token with the
@@ -88,21 +111,26 @@ trap 'exit 0' INT TERM
 # Noctalia and this watcher start together. Hide the island as soon as its IPC
 # socket is ready so an empty surface never lingers after login.
 for _ in {1..40}; do
-  if noctalia msg bar-hide "$island_name" >/dev/null 2>&1; then
+  if noctalia msg bar-auto-hide-set "$(configured_auto_hide)" "$island_name" >/dev/null 2>&1 \
+    && noctalia msg bar-hide "$island_name" >/dev/null 2>&1; then
     break
   fi
   sleep 0.25
 done
 
-# Position is not normally emitted as PropertiesChanged. Keep a tiny bit of
-# state while reading each D-Bus signal so the island is revealed for actual
-# playback (and track changes while playback continues), but not when a player
-# is merely paused or stopped. Process relevant properties as soon as their
-# value arrives: dbus-monitor does not consistently print blank separators.
-playing=0
+# Position is not normally emitted as PropertiesChanged. Track PlaybackStatus
+# and Metadata separately so the island appears on Play, Pause, and track
+# changes during playback. Process values as soon as they arrive because
+# dbus-monitor does not consistently print blank separators between signals.
 awaiting_playback_status=0
 
-while IFS= read -r line; do
+exec {monitor_fd}< <(
+  dbus-monitor --session \
+    "type='signal',interface='org.freedesktop.DBus.Properties',member='PropertiesChanged',arg0='org.mpris.MediaPlayer2.Player'"
+)
+monitor_pid=$!
+
+while IFS= read -r -u "$monitor_fd" line; do
   if [[ "$line" == signal\ * ]]; then
     awaiting_playback_status=0
     continue
@@ -115,19 +143,14 @@ while IFS= read -r line; do
 
   if [[ "$awaiting_playback_status" == 1 && "$line" == *'string "'* ]]; then
     awaiting_playback_status=0
-    if [[ "$line" == *'string "Playing"'* ]]; then
-      playing=1
+    if [[ "$line" == *'string "Playing"'* || "$line" == *'string "Paused"'* ]]; then
       show_briefly
-    else
-      playing=0
     fi
+    [[ "$line" == *'string "Playing"'* ]] && playing=1 || playing=0
     continue
   fi
 
   if [[ "$playing" == 1 && "$line" == *'string "Metadata"'* ]]; then
     show_briefly
   fi
-done < <(
-  dbus-monitor --session \
-    "type='signal',interface='org.freedesktop.DBus.Properties',member='PropertiesChanged',arg0='org.mpris.MediaPlayer2.Player'"
-)
+done

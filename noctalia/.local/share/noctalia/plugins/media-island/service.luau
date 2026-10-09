@@ -33,7 +33,8 @@ local function syncRuntimeConfig()
     -- below and updates the control in place.
     local scrollMode = noctalia.getConfig("always_scroll_title") == true and "always" or "on_hover"
     local pillClickMode = noctalia.getConfig("open_media_panel_on_click") == true and "panel" or "island"
-    local desired = table.concat({ panelMode, scrollMode, pillClickMode }, "\31")
+    local autoHideMode = noctalia.getConfig("auto_hide") == true and "on" or "off"
+    local desired = table.concat({ panelMode, scrollMode, pillClickMode, autoHideMode }, "\31")
     if desired == appliedRuntimeConfig then
         return
     end
@@ -42,11 +43,12 @@ local function syncRuntimeConfig()
     noctalia.runAsync({
         "sh",
         "-c",
-        "exec \"$HOME/.local/bin/noctalia-media-panel-mode\" \"$1\" \"$2\" \"$3\"",
+        "exec \"$HOME/.local/bin/noctalia-media-panel-mode\" \"$1\" \"$2\" \"$3\" \"$4\"",
         "media-island-config",
         panelMode,
         scrollMode,
         pillClickMode,
+        autoHideMode,
     }, function(result)
         runtimeConfigPending = false
         if result.exitCode == 0 then

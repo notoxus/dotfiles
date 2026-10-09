@@ -7,13 +7,13 @@ background_opacity = 0.94
 
 [bar.main]
 position = "left"
-thickness = 48
+thickness = 40
 background_opacity = 0.94
 radius = 20
-margin_ends = 10
-margin_edge = 8
-padding = 8
-widget_spacing = 8
+margin_ends = 0
+margin_edge = 0
+padding = 6
+widget_spacing = 6
 scale = 1.0
 font_scale = 1.0
 font_family = "JetBrainsMono Nerd Font"
@@ -23,7 +23,11 @@ reserve_space = true
 capsule = false
 start = ["os-logo", "workspaces", "taskbar"]
 center = ["clock"]
-end = ["network", "notifications", "volume", "battery", "bar-profile", "control-center", "session"]
+end = ["media-compact", "tray", "network", "notifications", "volume", "battery", "bar-profile", "control-center", "session"]
+
+# On vertical bars Noctalia renders only the album art for the media widget.
+[widget.media-compact]
+capsule = true
 
 [dock]
 enabled = true
@@ -41,7 +45,7 @@ margin_ends = 12
 margin_edge = 8
 shadow = true
 show_running = true
-auto_hide = false
+auto_hide = true
 smart_auto_hide = false
 reserve_space = false
 layer = "overlay"

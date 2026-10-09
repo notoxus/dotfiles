@@ -7,9 +7,9 @@ thickness = 42
 background_opacity = 0.96
 border = "#3B4261"
 border_width = 1.0
-radius = 22
-concave_edge_corners = true
-margin_ends = 12
+radius = 0
+concave_edge_corners = false
+margin_ends = 0
 margin_edge = 0
 padding = 14
 widget_spacing = 8
@@ -23,7 +23,7 @@ reserve_space = true
 capsule = false
 start = ["os-logo", "workspaces", "taskbar"]
 center = ["group:media-compact"]
-end = ["network", "notifications", "volume", "battery", "clock", "bar-profile", "control-center", "session"]
+end = ["tray", "network", "notifications", "volume", "battery", "clock", "bar-profile", "control-center", "session"]
 
 [[bar.main.capsule_group]]
 id = "media-compact"
@@ -34,3 +34,6 @@ opacity = 1.0
 radius = 80
 padding = 6
 widget_spacing = 6
+
+[widget.media-compact]
+capsule = false

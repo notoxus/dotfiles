@@ -6,6 +6,8 @@ local profileLabels = {}
 local selectedProfile = 0
 local selectedTheme = 0
 local selectedMode = 0
+local selectedCorners = 0
+local selectedBarBlur = false
 
 local function indexOf(values, wanted)
     for index, value in ipairs(values) do
@@ -34,15 +36,18 @@ local function render()
             ui.button({ glyph = "x", variant = "ghost", onClick = "closePanel" }),
         }),
         ui.label({
-            text = "Choose a palette, color mode, and bar layout. Changes are applied together.",
             color = "on_surface/0.7",
         }),
         ui.separator({ spacing = 2 }),
-        selectRow("Theme", appearance.builtinThemes, selectedTheme, "selectTheme"),
+        selectRow("Theme", appearance.themeOptions, selectedTheme, "selectTheme"),
         selectRow("Mode", { "Dark", "Light", "Auto" }, selectedMode, "selectMode"),
+        selectRow("Window corners", appearance.cornerOptions, selectedCorners, "selectCorners"),
         selectRow("Bar", profileLabels, selectedProfile, "selectProfile"),
         ui.spacer({ flexGrow = 1 }),
-        ui.row({ gap = 8, justify = "end" }, {
+        ui.row({ gap = 8, align = "center" }, {
+            ui.label({ text = "Bar blur", flexGrow = 1 }),
+            ui.toggle({ checked = selectedBarBlur, onChange = "selectBarBlur" }),
+            ui.spacer({ flexGrow = 1 }),
             ui.button({ text = "Cancel", variant = "ghost", onClick = "closePanel" }),
             ui.button({ text = "Apply", glyph = "check", variant = "primary", onClick = "applyAppearance" }),
         }),
@@ -65,8 +70,10 @@ function onOpen(context)
     end
 
     selectedProfile = indexOf(profileFiles, appearance.currentProfile())
-    selectedTheme = indexOf(appearance.builtinThemes, appearance.currentTheme())
+    selectedTheme = indexOf(appearance.themeOptions, appearance.currentTheme())
     selectedMode = indexOf(appearance.themeModes, appearance.currentMode())
+    selectedCorners = indexOf(appearance.cornerOptions, appearance.currentWindowCornerMode())
+    selectedBarBlur = appearance.currentBarBlurMode() == "Blur"
     render()
 end
 
@@ -77,6 +84,16 @@ end
 
 function selectMode(index, text)
     selectedMode = tonumber(index) or 0
+    render()
+end
+
+function selectCorners(index, text)
+    selectedCorners = tonumber(index) or 0
+    render()
+end
+
+function selectBarBlur(value)
+    selectedBarBlur = value == "true"
     render()
 end
 
@@ -91,11 +108,16 @@ end
 
 function applyAppearance()
     local profile = profileFiles[selectedProfile + 1]
-    local theme = appearance.builtinThemes[selectedTheme + 1]
+    local theme = appearance.themeOptions[selectedTheme + 1]
     local mode = appearance.themeModes[selectedMode + 1]
+    local cornerMode = appearance.cornerOptions[selectedCorners + 1]
+    local barBlur = selectedBarBlur and "Blur" or "Off"
     local previousProfile = appearance.currentProfile()
+    local previousCorners = appearance.currentWindowCornerMode()
+    local previousBarBlur = appearance.currentBarBlurMode()
+    local themeCommand = appearance.themeCommand(theme)
 
-    if profile == nil or theme == nil or mode == nil then
+    if profile == nil or themeCommand == nil or mode == nil or cornerMode == nil then
         noctalia.notifyError("Appearance", "One of the selected options is invalid")
         return
     end
@@ -106,10 +128,17 @@ function applyAppearance()
         return
     end
 
+    local styleOk, styleErr = appearance.applyWindowAppearance(cornerMode, barBlur)
+    if not styleOk then
+        if previousProfile ~= nil then appearance.applyProfile(previousProfile) end
+        noctalia.notifyError("Appearance", tostring(styleErr))
+        return
+    end
+
     -- Both theme commands persist their settings and reload Noctalia. Keep the
     -- sequence in one detached shell so it survives the plugin being reloaded.
     local command =
-        "noctalia msg color-scheme-set builtin " .. string.format("%q", theme) ..
+        themeCommand ..
         " && noctalia msg theme-mode-set " .. mode ..
         " && noctalia msg config-reload" ..
         " && sleep 0.5" ..
@@ -117,6 +146,9 @@ function applyAppearance()
 
     if not noctalia.runAsync({ "sh", "-c", command }) then
         if previousProfile ~= nil then appearance.applyProfile(previousProfile) end
+        if previousProfile ~= nil and previousCorners ~= nil and previousBarBlur ~= nil then
+            appearance.applyWindowAppearance(previousCorners, previousBarBlur)
+        end
         noctalia.notifyError("Appearance", "Could not start the apply command")
         return
     end

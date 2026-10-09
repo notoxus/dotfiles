@@ -22,6 +22,7 @@ input {
         //accel-profile "flat"
         //accel-speed 0.0
     }
-    focus-follows-mouse max-scroll-amount="0%"
+    // Let pointer focus follow into adjacent columns without allowing large view jumps.
+    focus-follows-mouse max-scroll-amount="100%"
     workspace-auto-back-and-forth // Enable workspace back & forth switching
 }

@@ -94,7 +94,7 @@ local function render()
                 fontWeight = "bold",
             }),
             ui.label({
-                text = showTimezone and "Âm lịch Việt Nam · UTC+7" or "Âm lịch Việt Nam",
+                text = showTimezone and "UTC+7",
                 fontSize = 12,
                 color = "on_surface/0.6",
             }),
