@@ -1,12 +1,20 @@
 #!/usr/bin/env bash
-# display-mode — Win+P style output switcher for niri
-# deps: niri, fuzzel, jq, wl-mirror
+
 set -euo pipefail
 
-internal="eDP-1"   # laptop panel
+mapfile -t all < <(niri msg --json outputs | jq -r 'keys[]')
 
-external="$(niri msg --json outputs | jq -r --arg i "$internal" 'keys[] | select(. != $i)' | head -n1)"
-if [[ -z "$external" ]]; then
+internal=""
+for o in "${all[@]}"; do
+  [[ $o =~ ^(eDP|LVDS|DSI) ]] && { internal=$o; break; }
+done
+[[ -n $internal ]] || internal="${all[0]}"   # desktop PC: treat the first as primary
+
+externals=()
+for o in "${all[@]}"; do
+  [[ $o != "$internal" ]] && externals+=("$o")
+done
+if (( ${#externals[@]} == 0 )); then
   echo "No external display connected." >&2
   exit 0
 fi
@@ -16,18 +24,20 @@ choice="$(printf '%s\n' 'PC screen only' 'Duplicate' 'Extend' 'Second screen onl
 
 pkill -x wl-mirror 2>/dev/null || true
 
+on_all()  { niri msg output "$internal" on; for e in "${externals[@]}"; do niri msg output "$e" on; done; }
+
 case "$choice" in
   'PC screen only')
     niri msg output "$internal" on
-    niri msg output "$external" off ;;
+    for e in "${externals[@]}"; do niri msg output "$e" off; done ;;
   'Second screen only')
-    niri msg output "$external" on
+    for e in "${externals[@]}"; do niri msg output "$e" on; done
     niri msg output "$internal" off ;;
   'Extend')
-    niri msg output "$internal" on
-    niri msg output "$external" on ;;
+    on_all ;;
   'Duplicate')
-    niri msg output "$internal" on
-    niri msg output "$external" on
-    wl-mirror --fullscreen --fullscreen-output "$external" "$internal" & ;;
+    on_all
+    for e in "${externals[@]}"; do
+      wl-mirror --fullscreen --fullscreen-output "$e" "$internal" &
+    done ;;
 esac

@@ -141,11 +141,7 @@ show_label = true
 left = "panel-toggle control-center power"
 
 [widget.control-center]
-glyph = "chevron-up"
-
-[widget.session]
-glyph = "power"
-color = "#FF000C"
+glyph = "adjustments"
 
 [widget.media]
 hide_when_no_media = true
@@ -245,3 +241,7 @@ tooltip_format = "{:%A, %B %d, %Y}"
 
 [widget.clock.actions]
 left = "panel-toggle notoxus/vietnamese-lunar-calendar:calendar"
+
+[hooks]
+shutting_down = "logger -t noctalia-hooks 'shutdown action started'"
+session_locked = "logger -t noctalia-hooks 'session locked'"

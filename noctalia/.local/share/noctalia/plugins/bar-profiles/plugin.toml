@@ -5,9 +5,9 @@ plugin_api = 26
 author = "notoxus"
 license = "MIT"
 dependencies = []
-tags = ["bar", "layout", "profiles", "theme"]
+tags = ["bar", "position", "theme"]
 icon = "palette"
-description = "Apply a Noctalia theme, color mode, and bar layout from one compact panel."
+description = "Apply a Noctalia theme, color mode, and bar position from one compact panel."
 
 [[panel]]
 id = "profile-picker"

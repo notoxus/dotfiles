@@ -9,7 +9,7 @@ local function render()
     barWidget.setTooltip({
         { key = "Theme", value = profiles.currentTheme() },
         { key = "Mode", value = profiles.currentMode() },
-        { key = "Bar", value = label },
+        { key = "Position", value = label },
         { key = "Click", value = "Customize appearance" },
     })
 end

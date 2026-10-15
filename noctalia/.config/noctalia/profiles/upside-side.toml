@@ -1,0 +1,60 @@
+[include]
+files = ["../fragments/media-island.toml"]
+
+# Also side bar but main bar in the right side
+[bar.media-island]
+background_opacity = 0.94
+
+[bar.main]
+position = "right"
+thickness = 40
+background_opacity = 0.94
+radius = 20
+margin_ends = 0
+margin_edge = 0
+padding = 6
+widget_spacing = 6
+scale = 1.0
+font_scale = 1.0
+font_family = "JetBrainsMono Nerd Font"
+shadow = true
+auto_hide = false
+reserve_space = true
+capsule = false
+start = ["os-logo", "workspaces"]
+center = ["clock"]
+end = ["media-compact", "tray", "network", "notifications", "volume", "battery", "bar-profile", "control-center" ]
+
+[widget.media-compact]
+capsule = true
+
+[dock]
+enabled = true
+position = "left"
+icon_size = 38
+main_axis_padding = 12
+cross_axis_padding = 7
+item_spacing = 7
+background_opacity = 0.92
+border = "outline"
+border_width = 1.0
+radius = 18
+concave_edge_corners = false
+margin_ends = 12
+margin_edge = 8
+shadow = true
+show_running = true
+auto_hide = true
+smart_auto_hide = false
+reserve_space = false
+layer = "overlay"
+active_scale = 1.0
+inactive_scale = 0.82
+magnification = true
+magnification_scale = 1.5
+active_opacity = 1.0
+inactive_opacity = 0.82
+show_dots = true
+show_instance_count = true
+launcher_position = "end"
+launcher_icon = "grid-dots"

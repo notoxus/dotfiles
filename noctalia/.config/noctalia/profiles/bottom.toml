@@ -23,7 +23,7 @@ reserve_space = true
 capsule = false
 start = ["os-logo", "workspaces", "taskbar"]
 center = ["group:media-compact"]
-end = ["tray", "network", "notifications", "volume", "battery", "clock", "bar-profile", "control-center", "session"]
+end = ["tray", "network", "notifications", "volume", "battery", "clock", "bar-profile", "control-center" ]
 
 [[bar.main.capsule_group]]
 id = "media-compact"

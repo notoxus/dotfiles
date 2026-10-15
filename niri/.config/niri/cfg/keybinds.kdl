@@ -32,6 +32,7 @@ binds {
     XF86MonBrightnessDown               allow-when-locked=true { spawn-sh "noctalia msg brightness-down"; }
     // Display
     Mod+P hotkey-overlay-title="Display Mode" { spawn-sh "$HOME/.local/bin/display-mode"; }
+    Mod+Alt+P hotkey-overlay-title="Refresh Rate"   { spawn-sh "$HOME/.local/bin/display-refresh"; }
     // ─── Window Movement and Focus ───
     // Niri handles these mouse gestures natively:
     // Mod + left-drag moves a window; Mod + right-drag resizes it.

@@ -1,10 +1,14 @@
 {
+  "settings.display-mode.label": "Kiểu hiển thị Island",
+  "settings.display-mode.description": "Chọn 'bar' để dùng thanh Top-Bar (có sóng nhạc PipeWire) hoặc 'panel' để dùng bảng Floating Top-Pane.",
+  "settings.preview-seconds.label": "Thời gian hiện thông báo",
+  "settings.preview-seconds.description": "Số giây Island tự hiện khi bắt đầu phát hoặc đổi bài.",
   "settings.always-scroll-title.label": "Luôn cuộn tiêu đề dài",
-  "settings.always-scroll-title.description": "Liên tục cuộn tiêu đề media dài. Mặc định chữ chỉ cuộn khi con trỏ nằm trên pill.",
+  "settings.always-scroll-title.description": "Liên tục cuộn tiêu đề media dài trên thanh Bar.",
   "settings.open-media-panel.label": "Mở bảng Media đầy đủ khi nhấn",
-  "settings.open-media-panel.description": "Mở thẳng bảng Media của Noctalia từ pill dưới bar. Mặc định, pill hiện island mở rộng trước; nhấn nội dung media trong island mới mở bảng Media.",
+  "settings.open-media-panel.description": "Mở thẳng bảng Media của Noctalia từ pill bên dưới.",
   "settings.panel-default-position.label": "Dùng vị trí panel mặc định",
-  "settings.panel-default-position.description": "Mở bảng Media tại vị trí mặc định của Noctalia thay vì gắn ngay bên dưới island mở rộng.",
+  "settings.panel-default-position.description": "Mở bảng Media tại vị trí mặc định thay vì đính bên dưới island.",
   "settings.auto-hide.label": "Tự ẩn thanh Island",
-  "settings.auto-hide.description": "Bật để thanh Island tự ẩn giữa các thông báo và có thể hiện lại khi rê lên cạnh trên. Tắt để thanh chỉ hiện trong thông báo phát hoặc đổi bài."
+  "settings.auto-hide.description": "Bật để thanh Island tự ẩn giữa các thông báo."
 }

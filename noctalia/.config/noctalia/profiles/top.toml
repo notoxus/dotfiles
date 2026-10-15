@@ -1,3 +1,6 @@
+[include]
+files = ["../fragments/media-island.toml"]
+
 [bar.main]
 position = "top"
 thickness = 34
@@ -14,6 +17,39 @@ shadow = true
 auto_hide = false
 reserve_space = true
 capsule = true
-start = ["os-logo", "clock", "active_window"]
-center = ["workspaces"]
-end = ["media-compact", "tray", "network", "notifications", "battery", "volume", "brightness", "bar-profile", "control-center"]
+# No active-window title or task list: the dock owns app switching.
+start = ["os-logo", "workspaces"]
+center = ["clock"]
+end = ["media-compact", "tray", "network", "notifications", "battery", "volume", "brightness", "bar-profile", "control-center" ]
+
+# Keep the Top profile's dock separate from the main bar.
+[dock]
+enabled = true
+position = "bottom"
+icon_size = 38
+main_axis_padding = 12
+cross_axis_padding = 7
+item_spacing = 7
+background_opacity = 0.92
+border = "outline"
+border_width = 1.0
+radius = 18
+concave_edge_corners = false
+margin_ends = 12
+margin_edge = 8
+shadow = true
+show_running = true
+auto_hide = true
+smart_auto_hide = false
+reserve_space = false
+layer = "overlay"
+active_scale = 1.0
+inactive_scale = 0.82
+magnification = true
+magnification_scale = 1.5
+active_opacity = 1.0
+inactive_opacity = 0.82
+show_dots = true
+show_instance_count = true
+launcher_position = "end"
+launcher_icon = "grid-dots"

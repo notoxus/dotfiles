@@ -1,7 +1,6 @@
 [include]
 files = ["../fragments/media-island.toml"]
 
-# Match the opacity of the regular side bar.
 [bar.media-island]
 background_opacity = 0.94
 
@@ -21,9 +20,10 @@ shadow = true
 auto_hide = false
 reserve_space = true
 capsule = false
-start = ["os-logo", "workspaces", "taskbar"]
+# App icons live in the separate dock, not the main system bar.
+start = ["os-logo", "workspaces"]
 center = ["clock"]
-end = ["media-compact", "tray", "network", "notifications", "volume", "battery", "bar-profile", "control-center", "session"]
+end = ["media-compact", "tray", "network", "notifications", "volume", "battery", "bar-profile", "control-center" ]
 
 # On vertical bars Noctalia renders only the album art for the media widget.
 [widget.media-compact]

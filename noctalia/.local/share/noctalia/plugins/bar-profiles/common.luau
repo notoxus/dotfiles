@@ -48,37 +48,16 @@ local function currentWindowCornerMode()
     return radius > 0 and "Rounded" or "Square"
 end
 
-local function currentBarBlurMode()
-    local content = noctalia.readFile(windowCornersPath()) or ""
-    local enabled =
-        string.match(content, "appearance%-bar%-blur=on") or
-        string.match(content, "appearance%-island%-blur=on")
-    return enabled and "Blur" or "Off"
-end
-
-local function applyWindowAppearance(cornerMode, blurMode)
+local function applyWindowAppearance(cornerMode)
     if cornerMode ~= "Square" and cornerMode ~= "Rounded" then
         return false, "invalid window-corner mode"
-    end
-    if blurMode ~= "Off" and blurMode ~= "Blur" then
-        return false, "invalid bar blur mode"
     end
     local radius = cornerMode == "Rounded" and 20 or 0
     local content =
         "// Managed by notoxus/bar-profiles Appearance controls.\n" ..
-        "// appearance-bar-blur=" .. (blurMode == "Blur" and "on" or "off") .. "\n" ..
         "window-rule {\n" ..
         "    geometry-corner-radius " .. radius .. "\n" ..
         "}\n"
-    if blurMode == "Blur" then
-        content = content ..
-            "layer-rule {\n" ..
-            '    match namespace=r#"^noctalia-bar-(main|media-island)$"#\n' ..
-            "    background-effect {\n" ..
-            "        blur true\n" ..
-            "    }\n" ..
-            "}\n"
-    end
     local path = windowCornersPath()
     if noctalia.readFile(path) == content then return true, nil end
 
@@ -101,7 +80,7 @@ end
 
 local function applyProfile(name)
     if not validProfileFile(name) then
-        return false, "invalid profile filename"
+        return false, "invalid position filename"
     end
 
     local files = profileFiles()
@@ -109,10 +88,10 @@ local function applyProfile(name)
     for _, candidate in ipairs(files) do
         if candidate == name then found = true break end
     end
-    if not found then return false, "profile file does not exist" end
+    if not found then return false, "position file does not exist" end
 
     local content =
-        "# Managed by notoxus/bar-profiles. Change layouts from its Control Center tile.\n" ..
+        "# Managed by notoxus/bar-profiles. Change position from its Control Center tile.\n" ..
         "[include]\n" ..
         'files = ["profiles/' .. name .. '"]\n'
 
@@ -178,7 +157,6 @@ return {
     labelFor = labelFor,
     applyProfile = applyProfile,
     currentWindowCornerMode = currentWindowCornerMode,
-    currentBarBlurMode = currentBarBlurMode,
     applyWindowAppearance = applyWindowAppearance,
     cornerOptions = { "Square", "Rounded" },
     themeOptions = THEME_OPTIONS,

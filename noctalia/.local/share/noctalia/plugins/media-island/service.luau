@@ -20,6 +20,7 @@ local currentArtUrl = ""
 local currentPlayer = nil
 local runtimeConfigPending = false
 local appliedRuntimeConfig = nil
+local PANEL_ID = "notoxus/media-island:island"
 
 local function syncRuntimeConfig()
     if runtimeConfigPending then
@@ -165,6 +166,18 @@ local function handleQuery(result)
 
     local artUrl = field(fields, "art_url", "")
     resolveArtwork(player, type(artUrl) == "string" and artUrl or "")
+end
+
+local function showPreview()
+  local mode = noctalia.getConfig("display_mode") or "bar"
+  
+  if mode == "panel" then
+    noctalia.runAsync({ "noctalia", "msg", "panel-open", PANEL_ID })
+    local seconds = tonumber(noctalia.getConfig("preview_seconds")) or 2
+    panelCloseAtMs = noctalia.nowMs() + (seconds * 1000)
+  else
+    noctalia.runAsync({ "sh", "-c", "$HOME/.local/bin/noctalia-media-island show" })
+  end
 end
 
 function update()

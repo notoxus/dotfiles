@@ -1,13 +1,30 @@
 id = "notoxus/media-island"
 name = "Media Island"
 version = "1.0.0"
-plugin_api = 26
+plugin_api = 24
 author = "notoxus"
 license = "MIT"
 dependencies = ["busctl"]
-tags = ["bar", "media"]
+tags = ["bar", "media", "panel", "service"]
 icon = "music"
-description = "Playback-aware marquee and controls for the temporary media island."
+description = "Playback-aware media island with configurable bar surface or top-center floating panel."
+
+[[setting]]
+key = "display_mode"
+type = "string"
+label_key = "settings.display-mode.label"
+description_key = "settings.display-mode.description"
+default = "bar"
+
+[[setting]]
+key = "preview_seconds"
+type = "int"
+label_key = "settings.preview-seconds.label"
+description_key = "settings.preview-seconds.description"
+default = 2
+min = 1
+max = 10
+step = 1
 
 [[setting]]
 key = "always_scroll_title"
@@ -35,7 +52,7 @@ key = "auto_hide"
 type = "bool"
 label_key = "settings.auto-hide.label"
 description_key = "settings.auto-hide.description"
-default = false
+default = true
 
 [[service]]
 id = "media-state"
@@ -47,3 +64,14 @@ entry = "bar.luau"
 
   [widget.actions]
   left = "media toggle"
+
+# Panel Declarated from Community
+[[panel]]
+id = "island"
+entry = "panel.luau"
+width = 620
+height = 118
+position = "top_center"
+persistent = true
+dismiss_on_outside_click = false
+keyboard_focus = "none"

@@ -1,8 +1,8 @@
 // ────────────── Startup Applications ──────────────
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Miscellaneous#spawn-sh-at-startup
 
-    spawn-at-startup "noctalia"
-    spawn-sh-at-startup "$HOME/.local/bin/noctalia-media-island"
-    spawn-sh-at-startup "fcitx5 -d"
-    spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"
-    spawn-at-startup "wl-paste" "--type" "image" "--watch" "cliphist" "store"
+spawn-at-startup "noctalia"
+spawn-sh-at-startup "$HOME/.local/bin/noctalia-media-island"
+spawn-sh-at-startup "fcitx5 -d"
+spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"
+spawn-at-startup "wl-paste" "--type" "image" "--watch" "cliphist" "store"

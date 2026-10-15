@@ -7,7 +7,6 @@ local selectedProfile = 0
 local selectedTheme = 0
 local selectedMode = 0
 local selectedCorners = 0
-local selectedBarBlur = false
 
 local function indexOf(values, wanted)
     for index, value in ipairs(values) do
@@ -42,11 +41,9 @@ local function render()
         selectRow("Theme", appearance.themeOptions, selectedTheme, "selectTheme"),
         selectRow("Mode", { "Dark", "Light", "Auto" }, selectedMode, "selectMode"),
         selectRow("Window corners", appearance.cornerOptions, selectedCorners, "selectCorners"),
-        selectRow("Bar", profileLabels, selectedProfile, "selectProfile"),
+        selectRow("Position", profileLabels, selectedProfile, "selectProfile"),
         ui.spacer({ flexGrow = 1 }),
         ui.row({ gap = 8, align = "center" }, {
-            ui.label({ text = "Bar blur", flexGrow = 1 }),
-            ui.toggle({ checked = selectedBarBlur, onChange = "selectBarBlur" }),
             ui.spacer({ flexGrow = 1 }),
             ui.button({ text = "Cancel", variant = "ghost", onClick = "closePanel" }),
             ui.button({ text = "Apply", glyph = "check", variant = "primary", onClick = "applyAppearance" }),
@@ -60,7 +57,7 @@ function onOpen(context)
     profileLabels = {}
 
     if err ~= nil or #profileFiles == 0 then
-        noctalia.notifyError("Appearance", err and tostring(err) or "No bar profiles found")
+        noctalia.notifyError("Appearance", err and tostring(err) or "No positions found")
         panel.close()
         return
     end
@@ -73,7 +70,6 @@ function onOpen(context)
     selectedTheme = indexOf(appearance.themeOptions, appearance.currentTheme())
     selectedMode = indexOf(appearance.themeModes, appearance.currentMode())
     selectedCorners = indexOf(appearance.cornerOptions, appearance.currentWindowCornerMode())
-    selectedBarBlur = appearance.currentBarBlurMode() == "Blur"
     render()
 end
 
@@ -92,11 +88,6 @@ function selectCorners(index, text)
     render()
 end
 
-function selectBarBlur(value)
-    selectedBarBlur = value == "true"
-    render()
-end
-
 function selectProfile(index, text)
     selectedProfile = tonumber(index) or 0
     render()
@@ -111,10 +102,8 @@ function applyAppearance()
     local theme = appearance.themeOptions[selectedTheme + 1]
     local mode = appearance.themeModes[selectedMode + 1]
     local cornerMode = appearance.cornerOptions[selectedCorners + 1]
-    local barBlur = selectedBarBlur and "Blur" or "Off"
     local previousProfile = appearance.currentProfile()
     local previousCorners = appearance.currentWindowCornerMode()
-    local previousBarBlur = appearance.currentBarBlurMode()
     local themeCommand = appearance.themeCommand(theme)
 
     if profile == nil or themeCommand == nil or mode == nil or cornerMode == nil then
@@ -128,7 +117,7 @@ function applyAppearance()
         return
     end
 
-    local styleOk, styleErr = appearance.applyWindowAppearance(cornerMode, barBlur)
+    local styleOk, styleErr = appearance.applyWindowAppearance(cornerMode)
     if not styleOk then
         if previousProfile ~= nil then appearance.applyProfile(previousProfile) end
         noctalia.notifyError("Appearance", tostring(styleErr))
@@ -146,8 +135,8 @@ function applyAppearance()
 
     if not noctalia.runAsync({ "sh", "-c", command }) then
         if previousProfile ~= nil then appearance.applyProfile(previousProfile) end
-        if previousProfile ~= nil and previousCorners ~= nil and previousBarBlur ~= nil then
-            appearance.applyWindowAppearance(previousCorners, previousBarBlur)
+        if previousProfile ~= nil and previousCorners ~= nil then
+            appearance.applyWindowAppearance(previousCorners)
         end
         noctalia.notifyError("Appearance", "Could not start the apply command")
         return
