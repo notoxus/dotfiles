@@ -4,6 +4,7 @@ environment {
     ELECTRON_OZONE_PLATFORM_HINT "auto"
     QT_QPA_PLATFORM "wayland"
     QT_QPA_PLATFORMTHEME "gtk3"
+    SAL_USE_VCLPLUGIN "gtk3"
     XDG_CURRENT_DESKTOP "niri"
     XDG_SESSION_TYPE "wayland"
 }

@@ -11,21 +11,26 @@
 | Shortcut | Action |
 |---|---|
 | `Mod + Shift + Esc` | Keybind overlay |
-| `Mod + Return` | Ghostty |
-| `Mod + Ctrl + Return` | Noctalia launcher |
+| `Ctrl + Alt + T` | Open Terminal (Ghostty) |
+| `Mod + Space` / `Alt + F2` | Noctalia launcher |
 | `Mod + B` | Firefox |
 | `Mod + E` | Thunar |
+| `Mod + V` | Open Clipboard History |
+| `Ctrl + Esc` | System Activity (btop) |
 | `Mod + Alt + L` | Lock screen |
 | `Mod + Shift + Q` | Session menu |
-| `Mod + Q` | Close window |
-| `Mod + O` | Overview |
+| `Alt + F4` | Close window |
+| `Ctrl + F10` | Toggle Overview |
 | `Mod + Shift + P` | Turn off monitors |
 | `Ctrl + Alt + Delete` | Quit Niri |
 
 | Shortcut | Focus / move |
 |---|---|
-| `Mod + ←/→/↑/↓` or `Mod + H/L/K/J` | Focus left/right/up/down |
-| `Mod + Ctrl + ←/→/↑/↓` or `Mod + Ctrl + H/L/K/J` | Move left/right/up/down |
+| `Mod + H/L` or `Mod + Alt + ←/→` | Focus column left/right |
+| `Mod + K/J` or `Mod + Alt + ↑/↓` | Focus window up/down |
+| `Alt + Tab` | Focus last window |
+| `Mod + Ctrl + H/L` or `Mod + Ctrl + ←/→` | Move column left/right |
+| `Mod + Ctrl + K/J` or `Mod + Ctrl + ↑/↓` | Move window up/down |
 | `Mod + Home/End` | Focus first/last column |
 | `Mod + Ctrl + Home/End` | Move column to first/last |
 | `Mod + Shift + ←/→/↑/↓` | Focus monitor |
@@ -33,13 +38,15 @@
 
 | Shortcut | Workspace |
 |---|---|
-| `Mod + 1..9` | Focus workspace 1–9 |
+| `Ctrl + F1..F9` | Focus workspace 1–9 |
 | `Mod + Ctrl + 1..9` | Move column to workspace 1–9 |
 | `Mod + Tab` | Previous workspace |
-| `Mod + Wheel Up/Down` | Previous/next workspace |
-| `Mod + Ctrl + Wheel Up/Down` | Move column to previous/next workspace |
+| `Mod + Wheel Up/Down` | Workspace up/down |
+| `Mod + Ctrl + Wheel Up/Down` | Move column to workspace up/down |
 | `Mod + Wheel Left/Right` | Focus column left/right |
 | `Mod + Ctrl + Wheel Left/Right` | Move column left/right |
+| `Mod + Shift + Wheel Up/Down` | Focus column left/right |
+| `Mod + Ctrl + Shift + Wheel Up/Down` | Move column left/right |
 
 | Shortcut | Layout |
 |---|---|
@@ -50,6 +57,7 @@
 | `Mod + -` / `Mod + =` | Decrease/increase column width |
 | `Mod + Shift + -` / `Mod + Shift + =` | Decrease/increase window height |
 | `Mod + T` | Toggle floating |
+| `Mod + Shift + T` | Switch focus: Tiling / Floating |
 | `Mod + M` | Zoom / restore window |
 | `Mod + F` | Toggle fullscreen |
 | `Mod + W` | Toggle tabbed column |
@@ -61,12 +69,14 @@
 | `XF86AudioPlay` / `XF86AudioPause` | Play/pause |
 | `XF86AudioNext` / `XF86AudioPrev` | Next/previous track |
 | `XF86MonBrightnessUp` / `XF86MonBrightnessDown` | Brightness up/down |
+| `Mod + P` | Display mode |
+| `Mod + Alt + P` | Refresh rate |
 
 | Shortcut | Screenshot / recovery |
 |---|---|
-| `Ctrl + Shift + 1` | Screenshot region |
-| `Ctrl + Shift + 2` | Screenshot screen |
-| `Ctrl + Shift + 3` | Screenshot focused window |
+| `Mod + Shift + S` | Screenshot region |
+| `Print` | Screenshot screen |
+| `Alt + Print` | Screenshot focused window |
 | `Mod + Esc` | Release keyboard-shortcut inhibitor |
 
 ## tmux
