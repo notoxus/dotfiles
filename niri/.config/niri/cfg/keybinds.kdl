@@ -1,13 +1,5 @@
 binds {
-
-    // ────────────── Keybindings ──────────────
-    // https://github.com/YaLTeR/niri/wiki/Configuration:-Key-Bindings
-
-    // ─── Noctalia v5 keybinds ───
-    // https://docs.noctalia.dev/noctalia/ipc/
-
     Mod+Shift+ESCAPE                     { show-hotkey-overlay; }
-
     // ─── Applications ───
     CTRL+Alt+T                          hotkey-overlay-title="Open Terminal: Ghostty" { spawn "ghostty"; }
     Alt+F2                              hotkey-overlay-title="Run Command: Noctalia" { spawn-sh "noctalia msg panel-toggle launcher"; }
@@ -40,15 +32,14 @@ binds {
     Alt+F4                              hotkey-overlay-title="Close Window" { close-window; }
 
     Mod+H                               { focus-column-left; }
-    Mod+Alt+Left                        { focus-column-left; }
+    Mod+Left                            { focus-column-left; }
     Mod+L                               { focus-column-right; }
-    Mod+Alt+Right                       { focus-column-right; }
+    Mod+Right                           { focus-column-right; }
     Mod+K                               { focus-window-up; }
-    Mod+Alt+Up                          { focus-window-up; }
+    Mod+Up                              { focus-window-up; }
     Mod+J                               { focus-window-down; }
-    Mod+Alt+Down                        { focus-window-down; }
+    Mod+Down                            { focus-window-down; }
     
-    Alt+Tab                             hotkey-overlay-title="Last Window" { focus-window-previous; }
     Mod+CTRL+Left                       { move-column-left; }
     Mod+CTRL+H                          { move-column-left; }
     Mod+CTRL+Right                      { move-column-right; }
@@ -143,4 +134,17 @@ binds {
     CTRL+ALT+Delete                     hotkey-overlay-title="Exit Niri" { quit; }
     Mod+Shift+P                         hotkey-overlay-title="Power Off Monitors" { power-off-monitors; }
     CTRL+F10                            repeat=false hotkey-overlay-title="Toggle Overview" { toggle-overview; }
+}
+recent-windows {
+    open-delay-ms 150
+
+    previews {
+        max-height 480
+        max-scale 0.5
+    }
+
+    binds {
+        Alt+Tab       { next-window; }
+        Alt+Shift+Tab { previous-window; }
+    }
 }

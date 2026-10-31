@@ -1,0 +1,12 @@
+/* Padding (distance from the first/ the last icon to endpoint) */
+.bar-container, #bar {
+    padding-left: 14px;
+    padding-right: 14px; 
+}
+
+/* Icon size */
+.icon, label.icon, image {
+    font-size: 13px;
+    min-height: 14px;
+    min-width: 14px;
+}

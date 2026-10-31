@@ -123,7 +123,18 @@ function applyAppearance()
         noctalia.notifyError("Appearance", tostring(styleErr))
         return
     end
+    local gtkTheme = "Adwaita-dark"
+    local gtkIcon = "Papirus-Dark" 
 
+    if theme == "Tokyo-Night" then
+        gtkTheme = "Adwaita-dark" 
+    elseif theme == "Catppuccin" then
+        gtkTheme = "Catppuccin-Mocha-Standard-Blue-Dark"
+    elseif theme == "Dracula" then
+        gtkTheme = "Dracula"
+    end
+    local setGtkCommand = "gsettings set org.gnome.desktop.interface gtk-theme '" .. gtkTheme .. 
+                          "' && gsettings set org.gnome.desktop.interface icon-theme '" .. gtkIcon .. "'"
     -- Both theme commands persist their settings and reload Noctalia. Keep the
     -- sequence in one detached shell so it survives the plugin being reloaded.
     local command =
@@ -131,7 +142,8 @@ function applyAppearance()
         " && noctalia msg theme-mode-set " .. mode ..
         " && noctalia msg config-reload" ..
         " && sleep 0.5" ..
-        " && noctalia msg bar-hide media-island >/dev/null 2>&1 || true"
+        " && noctalia msg bar-hide media-island >/dev/null 2>&1 || true" ..
+        " && " .. setGtkCommand
 
     if not noctalia.runAsync({ "sh", "-c", command }) then
         if previousProfile ~= nil then appearance.applyProfile(previousProfile) end

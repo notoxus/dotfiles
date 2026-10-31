@@ -2,7 +2,7 @@
 
 [include]
 autoload = false
-files = ["bar-profile.toml", "fragments/media-island-action.toml", "fragments/media-pill-runtime.toml"]
+files = ["bar-profile.toml"]
 
 [shell]
 corner_radius_scale = 1.0
