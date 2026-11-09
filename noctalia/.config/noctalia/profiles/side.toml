@@ -34,9 +34,6 @@ radius = 80
 padding = 6
 widget_spacing = 6
 
-[widget.media-compact]
-capsule = false
-
 [dock]
 enabled = true
 position = "right" # left
@@ -45,7 +42,7 @@ main_axis_padding = 12
 cross_axis_padding = 7
 item_spacing = 7
 background_opacity = 0.92
-border = "outline"
+border = "outline_variant"
 border_width = 1.0
 radius = 18
 concave_edge_corners = false
@@ -65,5 +62,6 @@ active_opacity = 1.0
 inactive_opacity = 0.82
 show_dots = true
 show_instance_count = true
-launcher_position = "end"
-launcher_icon = "grid-dots"
+launcher_position = "none"
+launcher_icon = "search"
+pinned = [ "thunar" ]

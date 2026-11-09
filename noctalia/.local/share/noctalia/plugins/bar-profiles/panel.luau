@@ -124,7 +124,7 @@ function applyAppearance()
         return
     end
     local gtkTheme = "Adwaita-dark"
-    local gtkIcon = "Papirus-Dark" 
+    local gtkIcon = "Adwaita-dark" 
 
     if theme == "Tokyo-Night" then
         gtkTheme = "Adwaita-dark" 
