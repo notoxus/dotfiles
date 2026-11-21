@@ -56,12 +56,12 @@ binds {
 
     Mod+Shift+Left                      { focus-monitor-left; }
     Mod+Shift+Right                     { focus-monitor-right; }
-    Mod+Shift+UP                        { focus-monitor-up; }
+    Mod+Shift+Up                        { focus-monitor-up; }
     Mod+Shift+Down                      { focus-monitor-down; }
 
     Mod+Shift+CTRL+Left                 { move-column-to-monitor-left; }
     Mod+Shift+CTRL+Right                { move-column-to-monitor-right; }
-    Mod+Shift+CTRL+UP                   { move-column-to-monitor-up; }
+    Mod+Shift+CTRL+Up                   { move-column-to-monitor-up; }
     Mod+Shift+CTRL+Down                 { move-column-to-monitor-down; }
 
     // ─── Workspace Switching ───
@@ -79,10 +79,10 @@ binds {
     Mod+CTRL+WheelScrollDown            cooldown-ms=150 { move-column-to-workspace-down; }
     Mod+CTRL+WheelScrollUp              cooldown-ms=150 { move-column-to-workspace-up; }
 
-    Mod+WheelScrollRight                { focus-column-right; }
-    Mod+WheelScrollLeft                 { focus-column-left; }
-    Mod+CTRL+WheelScrollRight           { move-column-right; }
-    Mod+CTRL+WheelScrollLeft            { move-column-left; }
+//  Mod+WheelScrollRight                { focus-column-right; }
+//  Mod+WheelScrollLeft                 { focus-column-left; }
+//  Mod+CTRL+WheelScrollRight           { move-column-right; }
+//  Mod+CTRL+WheelScrollLeft            { move-column-left; }
 
     Mod+Shift+WheelScrollDown           { focus-column-right; }
     Mod+Shift+WheelScrollUp             { focus-column-left; }
@@ -98,9 +98,11 @@ binds {
     Mod+CTRL+7                          { move-column-to-workspace 7; }
     Mod+CTRL+8                          { move-column-to-workspace 8; }
     Mod+CTRL+9                          { move-column-to-workspace 9; }
-
-    Mod+TAB                             hotkey-overlay-title="Previous Workspace" { focus-workspace-previous; }
-
+    Mod+Shift+TAB                       hotkey-overlay-title="Previous Workspace" { focus-workspace-previous; }
+    Mod+Alt+J                           cooldown-ms=150 { focus-workspace-up; }
+    Mod+Alt+K                           cooldown-ms=150 { focus-workspace-down; }
+    Mod+Alt+Up                          cooldown-ms=150 { focus-workspace-up; }
+    Mod+Alt+Down                        cooldown-ms=150 { focus-workspace-down; }
     // ─── Layout Controls ───
     Mod+CTRL+F                          hotkey-overlay-title="Expand Column to Available Width" { expand-column-to-available-width; }
     Mod+C                               hotkey-overlay-title="Center Column" { center-column; }
