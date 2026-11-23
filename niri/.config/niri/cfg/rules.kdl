@@ -4,6 +4,14 @@ window-rule {
     clip-to-geometry true
 }
 
+// Keep Noctalia's settings window floating and comfortably sized.
+window-rule {
+    match app-id="dev.noctalia.Noctalia"
+    open-floating true
+    default-column-width { fixed 1080; }
+    default-window-height { fixed 920; }
+}
+
 // Keep Firefox picture-in-picture floating.
 window-rule {
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
@@ -13,9 +21,12 @@ window-rule {
     default-window-height { fixed 270; }
     default-floating-position x=24 y=24 relative-to="bottom-right"
 }
+
 window-rule {
     match app-id="^soffice$"
     match app-id="^libreoffice-"
+    match app-id="^libreoffice-startcenter$"
+    match title="^LibreOffice"
     open-floating true
 }
 
@@ -40,4 +51,10 @@ window-rule {
 layer-rule {
     match namespace="^noctalia-wallpaper"
     place-within-backdrop true
+}
+
+// Enable on-demand VRR when mpv displays on the output.
+window-rule {
+    match app-id="^mpv$"
+    variable-refresh-rate true
 }

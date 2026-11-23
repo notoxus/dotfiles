@@ -4,7 +4,7 @@ set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PRIMARY_COMPONENTS=(fastfetch ghostty niri noctalia nvim starship tmux zsh)
-COMPONENTS=("${PRIMARY_COMPONENTS[@]}" btop yazi)
+COMPONENTS=("${PRIMARY_COMPONENTS[@]}" btop onlyoffice yazi)
 
 ACTION="copy"
 INSTALL_MODE="copy"
@@ -56,7 +56,7 @@ component_exists() {
 list_components() {
   printf 'Components:\n'
   printf '  %s\n' "${COMPONENTS[@]}"
-  printf "\nSpecific only:\n  btop\n  yazi\n"
+  printf "\nSpecific only:\n  btop\n  onlyoffice\n  yazi\n"
 }
 
 
@@ -147,6 +147,9 @@ check_component() {
       check_dependency nvim optional rg 'ripgrep live grep'
       check_dependency nvim optional 'cc|gcc|clang' 'C compiler for Treesitter parsers'
       verify_manually nvim optional 'Nerd Font for interface glyphs'
+      ;;
+    onlyoffice)
+      check_dependency onlyoffice required onlyoffice-desktopeditors 'ONLYOFFICE Desktop Editors'
       ;;
     starship)
       check_dependency starship required starship Starship

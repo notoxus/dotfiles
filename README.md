@@ -41,6 +41,7 @@ chmod +x ./install.sh
 | `btop` | btop |
 | `niri` | Niri and Noctalia v5 |
 | `noctalia` | Noctalia v5 |
+| `onlyoffice` | ONLYOFFICE Desktop Editors (optional) |
 
 ### Check dependencies
 
@@ -66,7 +67,7 @@ Install the default daily-driver components:
 ./install.sh all
 ```
 
-`btop`, `yazi` remain opt-in and
+`btop`, `onlyoffice`, `yazi` remain opt-in and
 can be deployed explicitly.
 
 Specific:
@@ -116,6 +117,17 @@ the OS name and shortcut hints; left-click it to open the Noctalia launcher.
 
 Log out and back in after enabling a plugin for the first time. A config reload
 may not create a newly added plugin entry until the Noctalia session restarts.
+
+### Optional ONLYOFFICE setting
+
+ONLYOFFICE still runs through XWayland. Its `titlebar=system` setting makes the
+window fill a Niri tile correctly instead of keeping a restored custom size.
+The component only seeds `DesktopEditors.conf` when it does not already exist,
+so your existing paths and window position are preserved:
+
+```sh
+./install.sh onlyoffice
+```
 
 ### Install the tmux plugins
 
@@ -204,6 +216,7 @@ Preview either mode without changing `$HOME`:
 | `niri` | Primary compositor |
 | `nvim` | Neovim configuration |
 | `noctalia` | Shell and bar for Niri and Umbriel |
+| `onlyoffice` | Optional ONLYOFFICE system title bar setting |
 | `starship` | Shell prompt |
 | `tmux` | Terminal multiplexer |
 | `yazi` | Terminal file manager |

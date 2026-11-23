@@ -45,6 +45,11 @@ chmod +x ./install.sh
 The checker reports missing commands or plugin files and prints their upstream
 documentation links. It never installs anything.
 
+## ONLYOFFICE (optional)
+
+- [ONLYOFFICE Desktop Editors download](https://www.onlyoffice.com/download-desktop)
+- [System title bar tiling fix](https://github.com/omacom/omarchy/discussions/16661)
+
 For the standalone, non-Nix Zsh setup, use:
 
 ```sh
