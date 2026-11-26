@@ -86,6 +86,9 @@ unit = "celsius"
 
 [location]
 auto_locate = true
+custom_schedule = true
+sunset = "20:00" # night starts
+sunrise = "05:00" # day starts
 
 [audio]
 enable_overdrive = false
@@ -93,6 +96,13 @@ enable_sounds = false
 
 [brightness]
 enable_ddcutil = false
+
+# Follows the fixed day/night schedule in [location].
+[nightlight]
+enabled = true
+force = false
+temperature_day = 6500
+temperature_night = 4000
 
 [plugins]
 enabled = ["notoxus/os-logo", "notoxus/bar-profiles", "notoxus/media-island", "notoxus/vietnamese-lunar-calendar", "ashur-d/wallpaper-widget"]
@@ -143,21 +153,6 @@ left = "panel-toggle control-center power"
 [widget.control-center]
 glyph = "adjustments"
 
-[widget.media]
-hide_when_no_media = true
-capsule = true
-capsule_fill = "#000000"
-capsule_foreground = "#FFFFFF"
-capsule_opacity = 1.0
-capsule_padding = 6
-capsule_radius = 80
-min_length = 120
-max_length = 150
-art_size = 18
-hide_artist = true
-title_scroll = "on_hover"
-show_progress = true
-
 [widget.media-wave-compact]
 type = "audio_visualizer"
 capsule = false
@@ -168,66 +163,6 @@ centered = true
 show_when_idle = false
 color_1 = "primary"
 color_2 = "secondary"
-
-# Expanded media presentation used only by the temporary top-center island.
-[widget.media-island]
-type = "media"
-hide_when_no_media = true
-capsule = false
-min_length = 190
-max_length = 240
-art_size = 28
-hide_artist = false
-title_scroll = "always"
-show_progress = true
-
-[widget.media-previous]
-type = "custom_button"
-glyph = "player-skip-back"
-tooltip = "Previous track"
-
-[widget.media-previous.actions]
-left = "media previous"
-
-[widget.media-toggle]
-type = "notoxus/media-island:playback-toggle"
-
-[widget.media-next]
-type = "custom_button"
-glyph = "player-skip-forward"
-tooltip = "Next track"
-
-[widget.media-next.actions]
-left = "media next"
-
-[widget.media-wave]
-type = "audio_visualizer"
-width = 48
-bands = 12
-mirrored = true
-centered = true
-show_when_idle = true
-color_1 = "primary"
-color_2 = "secondary"
-
-# Visually balances the expanded row so its album art sits slightly left of
-# center without changing spacing between media controls.
-[widget.media-balance]
-type = "spacer"
-length = 24
-
-[widget.taskbar]
-pinned = ["thunar"]
-group_by_workspace = false
-show_all_outputs = false
-only_active_workspace = false
-icon_scale = 0.9
-item_spacing = 4
-show_window_title = false
-show_active_indicator = true
-active_indicator_color = "primary"
-active_opacity = 1.0
-inactive_opacity = 0.7 # 0.75
 
 [widget.os-logo]
 type = "notoxus/os-logo:bar"
